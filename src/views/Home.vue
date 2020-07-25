@@ -1,17 +1,17 @@
 <template>
-  <div id="app">
+  <div class="home">
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {
+  name: 'Home',
+  props: {
+    msg: String
   }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
