@@ -7,10 +7,10 @@ import ImageFragment from './ImageFragment';
 class ImageYFragment extends ImageFragment {
     th: number;
     /**
-     * @param th 拉伸的目标宽度
+     * @param th 拉伸的目标高度
      */
-    constructor(sx: number, sy: number, sw: number, sh: number, dataSource: ImageData, th: number) {
-        super(sx, sy, sw, sh, dataSource)
+    constructor(sx: number, sy: number, dataSource: ImageData, th: number) {
+        super(sx, sy, dataSource)
         this.th = th;
     }
 
@@ -21,7 +21,6 @@ class ImageYFragment extends ImageFragment {
         const { sw, sh, th, dataSource } = this;
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
-
         canvas.width = sw;
         canvas.height = sh;
         context?.putImageData(dataSource, 0, 0);
@@ -29,8 +28,10 @@ class ImageYFragment extends ImageFragment {
         const targetArray = new Uint8ClampedArray(sw * th * 4);
         for (let y = 0; y < th; y++) {
             for (let x = 0; x < sw * 4; x++) {
-                targetArray[x + y * sw * 4] = pxData[x % sw]
+                targetArray[x + y * sw * 4] = pxData[x % (sw * 4)]
+
             }
+
         }
         const targetData = new ImageData(targetArray, sw, th)
         return targetData;

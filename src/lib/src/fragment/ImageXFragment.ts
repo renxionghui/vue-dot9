@@ -9,8 +9,8 @@ class ImageXFragment extends ImageFragment {
     /**
      * @param tw 拉伸的目标宽度
      */
-    constructor(sx: number, sy: number, sw: number, sh: number, dataSource: ImageData, tw: number) {
-        super(sx, sy, sw, sh, dataSource);
+    constructor(sx: number, sy: number, dataSource: ImageData, tw: number) {
+        super(sx, sy, dataSource);
         this.tw = tw;
     }
 

@@ -14,8 +14,8 @@ class ImageXYFragment extends ImageFragment {
      * @param th 拉伸的目标高度
      * @param fill 是否填充
      */
-    constructor(sx: number, sy: number, sw: number, sh: number, dataSource: ImageData, tw: number, th: number, fill = true) {
-        super(sx, sy, sw, sh, dataSource)
+    constructor(sx: number, sy: number, dataSource: ImageData, tw: number, th: number, fill = true) {
+        super(sx, sy, dataSource)
         this.tw = tw;
         this.th = th;
         this.fill = fill;

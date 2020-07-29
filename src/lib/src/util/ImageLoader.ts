@@ -8,16 +8,25 @@ class ImageLoader {
      * @param {string} 图片地址 
      * @return: 图片下载数据Promise
      */
-    static load(url: string): Promise<string | ArrayBuffer | null | undefined> {
+    static load(source: string): Promise<ImageData> {
+        const image = new Image();
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
         return new Promise((resolve, reject) => {
-            fetch(url).then(res => {
+            fetch(source).then(res => {
                 return res.blob();
             }).then(blob => {
                 let reader = new FileReader();
                 reader.readAsDataURL(new Blob([blob]));
                 reader.onload = function (e) {
-                    resolve(e.target?.result)
+                    if (typeof e.target?.result === 'string') {
+                        image.src = e.target.result;
+                    }
                 };
+                image.onload = function () {
+                    context?.drawImage(image, 0, 0);
+                    resolve(context?.getImageData(0, 0, image.width, image.height))
+                }
             }).catch(err => {
                 reject(err);
             })
