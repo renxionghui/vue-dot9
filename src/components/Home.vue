@@ -1,8 +1,12 @@
+<!--
+ * @Descripttion: 
+ * @Date: 2020-07-25 15:55:19
+--> 
 <template>
     <div class="home">
-        <div class="box1" v-dot9='option1'>
+        <!-- <div class="box1" v-dot9='option1'>
 
-        </div>
+        </div> -->
 
         <div class="box2" v-dot9='option2'>
 
@@ -12,9 +16,9 @@
 
         </div>
 
-        <div class="box4" v-dot9='option4'>
+        <!-- <div class="box4" v-dot9='option4'>
 
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -28,6 +32,7 @@ export default {
             },
             option2: {
                 source: require('../assets/border.png'),
+                sliceVertical: [18, 36, 54],
                 // source: require('../assets/grid.jpeg'),
                 // sliceOption:{
                 //     x:[28,36,46,54]
@@ -35,6 +40,7 @@ export default {
             },
             option3: {
                 source: require('../assets/border.png'),
+                sliceHorizontal: [24, 36, 48],
                 // source: require('../assets/grid.jpeg'),
             },
             option4: {
@@ -61,12 +67,12 @@ export default {
     height: 72px;
 }
 
-.box3{
+.box3 {
     width: 72px;
-    height: 300px;
+    height: 600px;
 }
 
-.box4{
+.box4 {
     width: 400px;
     height: 300px;
 }

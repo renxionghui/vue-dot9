@@ -43,35 +43,138 @@ var ImageFactory = /** @class */ (function () {
     ImageFactory.prototype.slice = function (sliceVertical, sliceHorizontal) {
         var _a = this.imageData, sourceW = _a.width, sourceH = _a.height;
         var _b = this, targetW = _b.targetW, targetH = _b.targetH;
+        if (!sliceVertical || sliceVertical.length === 0) {
+            sliceVertical = [Math.floor(sourceW / 2)];
+        }
+        if (!sliceHorizontal || sliceHorizontal.length === 0) {
+            sliceHorizontal = [Math.floor(sourceH / 2)];
+        }
         if (targetW < sourceW || targetH < sourceH || (targetW === sourceW && targetH === sourceH)) {
             this.imageFragments.push(new ImageFragment_1["default"](0, 0, this.imageData));
         }
         else if (targetW > sourceW && targetH === sourceH) { //只拉伸X轴
-            this.createXFragments(sourceH, sliceVertical);
+            sliceHorizontal = [];
         }
         else if (targetW === sourceW && targetH > sourceH) {
-            this.createYFragments(sliceHorizontal);
+            // this.createYFragments(sliceHorizontal)
+            sliceVertical = [];
         }
         else {
-            this.createXYFragment(sliceVertical, sliceHorizontal);
+            // sliceVertical = [];
+            // this.createXYFragment(sliceVertical, sliceHorizontal);
         }
+        this.sliceTop(sliceVertical, sliceHorizontal);
+        this.sliceRight(sliceVertical, sliceHorizontal);
+        this.sliceBottom(sliceVertical, sliceHorizontal);
     };
     /**
      * 合并图片数据
      */
     ImageFactory.prototype.merge = function () {
-        var targetContext = this.targetCanvas.getContext('2d');
-        for (var i = 0; i < this.imageFragments.length; i++) {
-            var fragment = this.imageFragments[i];
-            targetContext === null || targetContext === void 0 ? void 0 : targetContext.putImageData(fragment.getData(), fragment.sx, fragment.sy);
-        }
         return this.targetCanvas.toDataURL();
+    };
+    ImageFactory.prototype.sliceTop = function (sliceVertical, sliceHorizontal) {
+        var _a = this.imageData, width = _a.width, height = _a.height;
+        var targetW = this.targetW;
+        var context = this.targetCanvas.getContext('2d');
+        var len = sliceVertical.length;
+        var sy = 0;
+        var sh = sliceHorizontal.length ? sliceHorizontal[0] : height / 2;
+        if (len === 0) {
+            var sx = 0;
+            var sw = width / 2;
+            var dataSource = this.getData(sx, sy, sw, sh);
+            context === null || context === void 0 ? void 0 : context.putImageData(dataSource, sx, sy);
+            return;
+        }
+        var aw = Math.floor((targetW - width) / len);
+        var sxs = [0];
+        var txs = [0];
+        for (var i = 0; i < len; i++) {
+            sxs.push(sliceVertical[i]);
+            txs.push(sliceVertical[i] + aw * i);
+            txs.push(sliceVertical[i] + aw * (i + 1));
+        }
+        for (var i = 0; i < len; i++) {
+            //原数据
+            var osx = sxs[i];
+            var osy = sy;
+            var osw = sxs[i + 1] - sxs[i];
+            var osh = sh;
+            var oData = this.getData(osx, osy, osw, osh);
+            context === null || context === void 0 ? void 0 : context.putImageData(oData, txs[2 * i], osy);
+            //沿X轴拉伸的数据
+            var xsx = sxs[i + 1];
+            var xsy = sy;
+            var xsw = 1;
+            var xsh = sh;
+            var xData = this.getData(xsx, xsy, xsw, xsh);
+            var xFragment = new ImageXFragment_1["default"](xsx, xsy, xData, aw);
+            context === null || context === void 0 ? void 0 : context.putImageData(xFragment.getData(), txs[2 * i + 1], xsy);
+        }
+    };
+    ImageFactory.prototype.sliceRight = function (sliceVertical, sliceHorizontal) {
+        var _a = this.imageData, width = _a.width, height = _a.height;
+        var _b = this, targetW = _b.targetW, targetH = _b.targetH;
+        var context = this.targetCanvas.getContext('2d');
+        var len = sliceHorizontal.length;
+        var sx = sliceVertical.length ? sliceVertical[sliceVertical.length - 1] : width / 2;
+        var sw = sliceVertical.length ? width - sliceVertical[sliceVertical.length - 1] : width / 2;
+        if (len === 0) {
+            var sy = 0;
+            var sh = height / 2;
+            var dataSource = this.getData(sx, sy, sw, sh);
+            context === null || context === void 0 ? void 0 : context.putImageData(dataSource, targetW - sw, sy);
+            return;
+        }
+        var ah = Math.floor((targetH - height) / len);
+        var sys = [0];
+        var tys = [0];
+        for (var i = 0; i < len; i++) {
+            sys.push(sliceHorizontal[i]);
+            tys.push(sliceHorizontal[i] + ah * i);
+            tys.push(sliceHorizontal[i] + ah * (i + 1));
+        }
+        for (var i = 0; i < len; i++) {
+            //原数据
+            var osx = sx;
+            var osy = sys[i];
+            var osw = sw;
+            var osh = sys[i + 1] - sys[i];
+            var oData = this.getData(osx, osy, osw, osh);
+            context === null || context === void 0 ? void 0 : context.putImageData(oData, osx, tys[2 * i]);
+            //沿Y轴拉伸的数据
+            var ysx = sx;
+            var ysy = sys[i + 1];
+            var ysw = sw;
+            var ysh = 1;
+            var yData = this.getData(ysx, ysy, ysw, ysh);
+            var yFragment = new ImageYFragment_1["default"](ysx, ysy, yData, ah);
+            context === null || context === void 0 ? void 0 : context.putImageData(yFragment.getData(), ysx, tys[2 * i + 1]);
+        }
+    };
+    ImageFactory.prototype.sliceBottom = function (sliceVertical, sliceHorizontal) {
+        var _a = this.imageData, width = _a.width, height = _a.height;
+        var _b = this, targetW = _b.targetW, targetH = _b.targetH;
+        var context = this.targetCanvas.getContext('2d');
+        var len = sliceVertical.length;
+        var sy = sliceHorizontal.length ? sliceHorizontal[sliceHorizontal.length - 1] : height / 2;
+        var sh = sliceHorizontal.length ? targetH - sliceHorizontal[sliceHorizontal.length - 1] : height / 2;
+        console.log(sh);
+        if (len === 0) {
+            var sx = 0;
+            var sw = width / 2;
+            var dataSource = this.getData(sx, sy, sw, sh);
+            context === null || context === void 0 ? void 0 : context.putImageData(dataSource, sx, targetH - sy);
+            console.log(targetH - sy);
+            return;
+        }
     };
     /**
      * 水平拉伸
      * @param sliceVertical 水平方向分割坐标数组
      */
-    ImageFactory.prototype.createXFragments = function (targetHeight, sliceVertical) {
+    ImageFactory.prototype.createXFragments = function (sliceVertical) {
         var sourceW = this.imageData.width;
         if (!sliceVertical || sliceVertical.length === 0) {
             var startX = Math.floor(sourceW / 3);
@@ -82,7 +185,7 @@ var ImageFactory = /** @class */ (function () {
         var sliceX = 0;
         //第一块为图片原数据
         var firstWidth = sliceVertical[0];
-        var firstData = this.getData(0, 0, firstWidth, targetHeight);
+        var firstData = this.getData(0, 0, firstWidth, this.targetH);
         var firstFragment = new ImageFragment_1["default"](0, 0, firstData);
         this.imageFragments.push(firstFragment);
         sliceX += firstWidth;
@@ -94,7 +197,7 @@ var ImageFactory = /** @class */ (function () {
             var xsx = sliceVertical[2 * i];
             var xsy = 0;
             var xsw = sliceVertical[2 * i + 1] - sliceVertical[2 * i] + 1;
-            var xData = this.getData(xsx, xsy, xsw, targetHeight);
+            var xData = this.getData(xsx, xsy, xsw, this.targetH);
             var xFragment = new ImageXFragment_1["default"](sliceX, xsy, xData, averageWidth + xsw);
             this.imageFragments.push(xFragment);
             sliceX += (averageWidth + xsw);
@@ -108,7 +211,7 @@ var ImageFactory = /** @class */ (function () {
             else {
                 osw = sourceW - sliceVertical[len - 1] - 1;
             }
-            var oData = this.getData(osx, osy, osw, targetHeight);
+            var oData = this.getData(osx, osy, osw, this.targetH);
             var oFragment = new ImageFragment_1["default"](sliceX, osy, oData);
             this.imageFragments.push(oFragment);
             sliceX += osw;
@@ -183,7 +286,8 @@ var ImageFactory = /** @class */ (function () {
         var ah = Math.floor((this.targetH - sourceH) / (hLen / 2));
         //上边
         var topTargetHeight = sliceHorizontal[0];
-        this.createXFragments(topTargetHeight, sliceVertical);
+        this.createXFragments(sliceVertical);
+        //左边
     };
     return ImageFactory;
 }());
