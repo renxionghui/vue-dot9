@@ -21,23 +21,25 @@ class Dot9 {
      * 请求图片数据,创建背景图片
      */
     create() {
-        const { source, sliceVertical,sliceHorizontal } = this.options;
+        const { source, sliceVertical, sliceHorizontal } = this.options;
         ImageLoader.load(source).then((imageData: ImageData) => {
             const { width, height } = getComputedStyle(this.el);
             const targetW = parseInt(width, 10);
             const targetH = parseInt(height, 10);
-            const factory = new ImageFactory(imageData,targetW,targetH);
-            const image = factory.createImage(sliceVertical,sliceHorizontal);
+            const factory = new ImageFactory(imageData, targetW, targetH);
+            const image = factory.createImage(sliceVertical, sliceHorizontal);
             this.el.style.backgroundImage = `url(${image})`;
+            this.el.style.backgroundRepeat = 'no-repeat';
         })
     }
 }
 
+
 interface Options {
     source: string,
-    fill?: boolean,
-    sliceVertical?:Array<number>
-    sliceHorizontal?:Array<number>
+    fill?: boolean | string,
+    sliceVertical?: Array<number>
+    sliceHorizontal?: Array<number>
 }
 
 export default Dot9

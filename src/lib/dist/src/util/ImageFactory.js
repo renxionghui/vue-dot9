@@ -1,18 +1,11 @@
 "use strict";
-exports.__esModule = true;
-/*
- * @Descripttion: 将图片分割处理
- * @Date: 2020-07-27 09:18:19
- */
-var ImageXFragment_1 = require("../fragment/ImageXFragment");
-var ImageYFragment_1 = require("../fragment/ImageYFragment");
-// import ImageXYFragment from '../fragment/ImageXYFragment';
-var ImageFactory = /** @class */ (function () {
-    /**
-     * @param imageData:下载的图片数据
-     * @param targetW: 最终图片的宽度
-     * @param targetH: 最终图片的高度
-     */
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var ImageXFragment_1 = __importDefault(require("../fragment/ImageXFragment"));
+var ImageYFragment_1 = __importDefault(require("../fragment/ImageYFragment"));
+var ImageFactory = (function () {
     function ImageFactory(imageData, targetW, targetH) {
         var _a;
         this.imageData = imageData;
@@ -35,9 +28,6 @@ var ImageFactory = /** @class */ (function () {
         var image = this.merge();
         return image;
     };
-    /**
-     * 分割图片数据
-     */
     ImageFactory.prototype.slice = function (sliceVertical, sliceHorizontal) {
         var _a = this.imageData, sourceW = _a.width, sourceH = _a.height;
         var _b = this, targetW = _b.targetW, targetH = _b.targetH;
@@ -51,12 +41,10 @@ var ImageFactory = /** @class */ (function () {
             sliceHorizontal = [];
             sliceVertical = [];
         }
-        else if (targetW > sourceW && targetH === sourceH) { //只拉伸X轴
-            // sliceHorizontal = [];
+        else if (targetW > sourceW && targetH === sourceH) {
             sliceVertical = [];
         }
-        else if (targetW === sourceW && targetH > sourceH) { //只拉伸Y轴
-            // sliceVertical = [];
+        else if (targetW === sourceW && targetH > sourceH) {
             sliceHorizontal = [];
         }
         this.sliceTop(sliceVertical, sliceHorizontal);
@@ -64,9 +52,6 @@ var ImageFactory = /** @class */ (function () {
         this.sliceBottom(sliceVertical, sliceHorizontal);
         this.sliceLeft(sliceVertical, sliceHorizontal);
     };
-    /**
-     * 合并图片数据
-     */
     ImageFactory.prototype.merge = function () {
         return this.targetCanvas.toDataURL();
     };
@@ -93,20 +78,18 @@ var ImageFactory = /** @class */ (function () {
             txs.push(sliceHorizontal[i] + aw * (i + 1));
         }
         for (var i = 0; i < len; i++) {
-            //原数据
             var osx = sxs[i];
             var osy = sy;
             var osw = sxs[i + 1] - sxs[i];
             var osh = sh;
             var oData = this.getData(osx, osy, osw, osh);
             context === null || context === void 0 ? void 0 : context.putImageData(oData, txs[2 * i], osy);
-            //沿X轴拉伸的数据
             var xsx = sxs[i + 1];
             var xsy = sy;
             var xsw = 1;
             var xsh = sh;
             var xData = this.getData(xsx, xsy, xsw, xsh);
-            var xFragment = new ImageXFragment_1["default"](xsx, xsy, xData, aw);
+            var xFragment = new ImageXFragment_1.default(xsx, xsy, xData, aw);
             context === null || context === void 0 ? void 0 : context.putImageData(xFragment.getData(), txs[2 * i + 1], xsy);
         }
     };
@@ -134,20 +117,18 @@ var ImageFactory = /** @class */ (function () {
             tys.push(sliceVertical[i] + ah * (i + 1));
         }
         for (var i = 0; i < len; i++) {
-            //原数据
             var osx = sx;
             var osy = sys[i];
             var osw = sw;
             var osh = sys[i + 1] - sys[i];
             var oData = this.getData(osx, osy, osw, osh);
             context === null || context === void 0 ? void 0 : context.putImageData(oData, tx, tys[2 * i]);
-            //沿Y轴拉伸的数据
             var ysx = sx;
             var ysy = sys[i + 1];
             var ysw = sw;
             var ysh = 1;
             var yData = this.getData(ysx, ysy, ysw, ysh);
-            var yFragment = new ImageYFragment_1["default"](ysx, ysy, yData, ah);
+            var yFragment = new ImageYFragment_1.default(ysx, ysy, yData, ah);
             context === null || context === void 0 ? void 0 : context.putImageData(yFragment.getData(), tx, tys[2 * i + 1]);
         }
     };
@@ -175,15 +156,13 @@ var ImageFactory = /** @class */ (function () {
             txs.push(sliceHorizontal[i] + aw * (i + 1));
         }
         for (var i = 0; i < len; i++) {
-            //沿X轴拉伸的数据
             var xsx = sxs[i];
             var xsy = sy;
             var xsw = 1;
             var xsh = sh;
             var xData = this.getData(xsx, xsy, xsw, xsh);
-            var xFragment = new ImageXFragment_1["default"](xsx, xsy, xData, aw);
+            var xFragment = new ImageXFragment_1.default(xsx, xsy, xData, aw);
             context === null || context === void 0 ? void 0 : context.putImageData(xFragment.getData(), txs[2 * i], ty);
-            //原数据
             var osx = sxs[i];
             var osy = sy;
             var osw = sxs[i + 1] ? sxs[i + 1] - sxs[i] : width - sxs[i];
@@ -215,15 +194,13 @@ var ImageFactory = /** @class */ (function () {
             tys.push(sliceVertical[i] + ah * (i + 1));
         }
         for (var i = 0; i < len; i++) {
-            //沿Y轴拉伸的数据
             var ysx = sx;
             var ysy = sys[i];
             var ysw = sw;
             var ysh = 1;
             var yData = this.getData(ysx, ysy, ysw, ysh);
-            var yFragment = new ImageYFragment_1["default"](ysx, ysy, yData, ah);
+            var yFragment = new ImageYFragment_1.default(ysx, ysy, yData, ah);
             context === null || context === void 0 ? void 0 : context.putImageData(yFragment.getData(), ysx, tys[2 * i]);
-            //原数据
             var osx = sx;
             var osy = sys[i];
             var osw = sw;
@@ -236,4 +213,4 @@ var ImageFactory = /** @class */ (function () {
     };
     return ImageFactory;
 }());
-exports["default"] = ImageFactory;
+exports.default = ImageFactory;

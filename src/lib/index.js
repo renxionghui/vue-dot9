@@ -2,7 +2,7 @@
  * @Descripttion: 
  * @Date: 2020-07-25 15:59:21
  */
-import Dot9 from './src/Dot9';
+import Dot9 from './dist/src/Dot9';
 
 function bind(el, binding) {
     (async () => {
@@ -13,14 +13,18 @@ function bind(el, binding) {
         el.ro = new ResizeObserver(() => {
             const dot9 = new Dot9(el, binding.value);
             dot9.create();
+            if(binding.value.resizable === false){
+                el.ro.disconnect()
+            }
         });
-
         el.ro.observe(el);
     })();
 }
 
 function unbind(el, binding) {
-    console.log(el, binding);
+    if (el.ro) {
+        el.ro.disconnect()
+    }
 }
 
 const plugin = {
