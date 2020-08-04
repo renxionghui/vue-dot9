@@ -4,6 +4,7 @@
  */
 import ImageLoader from './util/ImageLoader';
 import ImageFactory from './util/ImageFactory';
+import { filter } from 'vue/types/umd';
 class Dot9 {
     el: HTMLElement;
     options: Options;
@@ -11,6 +12,9 @@ class Dot9 {
     /** 
      * @param el 需要生成设置图片背景的dom
      * @param options 设置对应的参数
+     * @param options.source 图片地址
+     * @param options.sliceVertical 垂直方向上分割的坐标位置
+     * @param options.sliceHorizontal 水平方向上分割的坐标位置
      */
     constructor(el: HTMLElement, options: Options) {
         this.el = el;
@@ -21,25 +25,25 @@ class Dot9 {
      * 请求图片数据,创建背景图片
      */
     create() {
-        const { source, sliceVertical, sliceHorizontal } = this.options;
-        ImageLoader.load(source).then((imageData: ImageData) => {
+        const { source, sliceHorizontal, sliceVertical, filter } = this.options;
+        ImageLoader.load(source, filter).then((imageData: ImageData) => {
             const { width, height } = getComputedStyle(this.el);
             const targetW = parseInt(width, 10);
             const targetH = parseInt(height, 10);
             const factory = new ImageFactory(imageData, targetW, targetH);
-            const image = factory.createImage(sliceVertical, sliceHorizontal);
-            this.el.style.backgroundImage = `url(${image})`;
-            this.el.style.backgroundRepeat = 'no-repeat';
+            const image = factory.createImage(sliceHorizontal, sliceVertical);
+            this.el.style.cssText += `background-image:url('${image}');background-repeat:no-repeat`;
         })
     }
 }
 
 
 interface Options {
-    source: string,
-    fill?: boolean | string,
-    sliceVertical?: Array<number>
-    sliceHorizontal?: Array<number>
+    source: string;
+    resizable: boolean;
+    sliceVertical?: Array<number>;
+    sliceHorizontal?: Array<number>;
+    filter?: string
 }
 
 export default Dot9

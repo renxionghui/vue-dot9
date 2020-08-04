@@ -157,8 +157,8 @@
         "affectsGlobalScope": true
       },
       "../src/util/imageloader.ts": {
-        "version": "c8f8af504677fe46447c242d45b7f8f9eab156db253d4fed71a51f5720707585",
-        "signature": "f314aa416abb7017f73fc4baa38db70b6f675e85fc7821991a4bab0646254b9e",
+        "version": "a8f6ea2ff7a7f9b147fee96c0ea8ef23add6eb91a952014b126a9daea0926863",
+        "signature": "f4c921db0a232d89f59839bed777631f324e6ca014e6f5a6260a740445cb3287",
         "affectsGlobalScope": false
       },
       "../src/fragment/imagefragment.ts": {
@@ -176,19 +176,49 @@
         "signature": "48065f30a35dc04f93809a0806db5ca3948602cef14a82c5cc760ed1cae94e1b",
         "affectsGlobalScope": false
       },
+      "../src/fragment/imagefillfragment.ts": {
+        "version": "66d25cde042cfa61de69943cffa6f811211e47013638ca83f1fbfe43377b39bc",
+        "signature": "2b7f125484d32c82e648289fdf425bf05e2b9205d6823514c6cf40dfa6631bde",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/vue/types/vnode.d.ts": {
+        "version": "336721337da7deac683208a3089786c32cd834fd7e992cc2a9de5abd6100d8aa",
+        "signature": "336721337da7deac683208a3089786c32cd834fd7e992cc2a9de5abd6100d8aa",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/vue/types/options.d.ts": {
+        "version": "83e2325a245cc898ca63a68dcc0477efd47e97a3343c96547b26545d86a60cfb",
+        "signature": "83e2325a245cc898ca63a68dcc0477efd47e97a3343c96547b26545d86a60cfb",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/vue/types/plugin.d.ts": {
+        "version": "e8cc0280272ae461f8dc6eef59712323d9eea7abfd455a8d4861601f3c5a9a6f",
+        "signature": "e8cc0280272ae461f8dc6eef59712323d9eea7abfd455a8d4861601f3c5a9a6f",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/vue/types/vue.d.ts": {
+        "version": "c483036e3c3aea2c4b7d435120543bea042a68aa38e56b91344678384357eb27",
+        "signature": "c483036e3c3aea2c4b7d435120543bea042a68aa38e56b91344678384357eb27",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/vue/types/index.d.ts": {
+        "version": "4a75e4b3cb109dcf5e977cb8ab1c8f9804073b37fa7f094785ee8014efdeabf4",
+        "signature": "4a75e4b3cb109dcf5e977cb8ab1c8f9804073b37fa7f094785ee8014efdeabf4",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/vue/types/umd.d.ts": {
+        "version": "fe4441713df34868b3883ae9532d1390de8456e65534a26c019051bf170a3a93",
+        "signature": "fe4441713df34868b3883ae9532d1390de8456e65534a26c019051bf170a3a93",
+        "affectsGlobalScope": false
+      },
       "../src/util/imagefactory.ts": {
-        "version": "27d60a77b923665a9322aacc5d124c2b1dfe77264cfdf7b2e444d543bb942676",
-        "signature": "6afdc3ca53cbf86d67923cedcd2cdf8c113df4bbb057e503fdb5fac1b0963856",
+        "version": "350a2749ba38de90914ef86196ce1081cd765453fe6c120332fa26d218195f89",
+        "signature": "878c19fde7f15d7fe504ebeb8daf9cb53d79579e4975137a94c3acb43f80677a",
         "affectsGlobalScope": false
       },
       "../src/dot9.ts": {
-        "version": "e60627d27abb26214d23729a56ee7ce665090f96ba85d81b761a2e78c0a5cec8",
-        "signature": "8ce33d8a5fefe2e79f44bc63a35527b166bdaacfa35f47b005454e311c17395f",
-        "affectsGlobalScope": false
-      },
-      "../src/fragment/imagefillfragment.ts": {
-        "version": "ee8c053c551912df0998a0da0c1aecdb8733bbcfbc306cc3ff050244f150640c",
-        "signature": "53b4b845d0b43f9d4eb1e380273ee5f4a1d566641dc118143bf13d7b4fcffe36",
+        "version": "9eaa7ae4ee253935b60b67cda8f3cdb5043dc44e081f4d93bf4212d6e48fc797",
+        "signature": "05b21769008538d30d3bc87e3e811a75d90e8fa86d5653978b5b1add84c4172d",
         "affectsGlobalScope": false
       },
       "../../../node_modules/@types/color-name/index.d.ts": {
@@ -487,9 +517,9 @@
       "module": 1,
       "outDir": "./",
       "composite": true,
-      "removeComments": true,
       "strict": true,
       "esModuleInterop": true,
+      "experimentalDecorators": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
       "watch": true,
@@ -1057,6 +1087,68 @@
         "../../../node_modules/@types/node/ts3.2/util.d.ts",
         "../../../node_modules/@types/node/util.d.ts"
       ],
+      "../../../node_modules/vue/types/index.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/options.d.ts",
+        "../../../node_modules/vue/types/plugin.d.ts",
+        "../../../node_modules/vue/types/umd.d.ts",
+        "../../../node_modules/vue/types/vnode.d.ts",
+        "../../../node_modules/vue/types/vue.d.ts"
+      ],
+      "../../../node_modules/vue/types/options.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/vnode.d.ts",
+        "../../../node_modules/vue/types/vue.d.ts"
+      ],
+      "../../../node_modules/vue/types/plugin.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/vue.d.ts"
+      ],
+      "../../../node_modules/vue/types/umd.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/index.d.ts",
+        "../../../node_modules/vue/types/options.d.ts"
+      ],
+      "../../../node_modules/vue/types/vnode.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/vue.d.ts"
+      ],
+      "../../../node_modules/vue/types/vue.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/options.d.ts",
+        "../../../node_modules/vue/types/plugin.d.ts",
+        "../../../node_modules/vue/types/vnode.d.ts"
+      ],
       "../src/dot9.ts": [
         "../../../node_modules/@types/node/fs.d.ts",
         "../../../node_modules/@types/node/process.d.ts",
@@ -1064,6 +1156,7 @@
         "../../../node_modules/@types/node/ts3.2/process.d.ts",
         "../../../node_modules/@types/node/ts3.2/util.d.ts",
         "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/umd.d.ts",
         "../src/util/imagefactory.ts",
         "../src/util/imageloader.ts"
       ],
@@ -1109,6 +1202,8 @@
         "../../../node_modules/@types/node/ts3.2/process.d.ts",
         "../../../node_modules/@types/node/ts3.2/util.d.ts",
         "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/umd.d.ts",
+        "../src/fragment/imagefillfragment.ts",
         "../src/fragment/imagexfragment.ts",
         "../src/fragment/imageyfragment.ts"
       ],
@@ -1931,6 +2026,68 @@
         "../../../node_modules/@types/node/ts3.2/util.d.ts",
         "../../../node_modules/@types/node/util.d.ts"
       ],
+      "../../../node_modules/vue/types/index.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/options.d.ts",
+        "../../../node_modules/vue/types/plugin.d.ts",
+        "../../../node_modules/vue/types/umd.d.ts",
+        "../../../node_modules/vue/types/vnode.d.ts",
+        "../../../node_modules/vue/types/vue.d.ts"
+      ],
+      "../../../node_modules/vue/types/options.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/vnode.d.ts",
+        "../../../node_modules/vue/types/vue.d.ts"
+      ],
+      "../../../node_modules/vue/types/plugin.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/vue.d.ts"
+      ],
+      "../../../node_modules/vue/types/umd.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/index.d.ts",
+        "../../../node_modules/vue/types/options.d.ts"
+      ],
+      "../../../node_modules/vue/types/vnode.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/vue.d.ts"
+      ],
+      "../../../node_modules/vue/types/vue.d.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../../../node_modules/vue/types/options.d.ts",
+        "../../../node_modules/vue/types/plugin.d.ts",
+        "../../../node_modules/vue/types/vnode.d.ts"
+      ],
       "../src/fragment/imagefillfragment.ts": [
         "../src/fragment/imagefragment.ts"
       ],
@@ -2248,6 +2405,12 @@
       "../../../node_modules/@types/node/zlib.d.ts",
       "../../../node_modules/@types/normalize-package-data/index.d.ts",
       "../../../node_modules/@types/q/index.d.ts",
+      "../../../node_modules/vue/types/index.d.ts",
+      "../../../node_modules/vue/types/options.d.ts",
+      "../../../node_modules/vue/types/plugin.d.ts",
+      "../../../node_modules/vue/types/umd.d.ts",
+      "../../../node_modules/vue/types/vnode.d.ts",
+      "../../../node_modules/vue/types/vue.d.ts",
       "../src/dot9.ts",
       "../src/fragment/imagefillfragment.ts",
       "../src/fragment/imagefragment.ts",

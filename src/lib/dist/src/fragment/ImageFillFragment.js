@@ -16,15 +16,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/*
+ * @Descripttion: 向X轴,Y轴同时拉伸的Image片段
+ * @Date: 2020-07-27 12:34:20
+ */
 var ImageFragment_1 = __importDefault(require("./ImageFragment"));
-var ImageFillFragment = (function (_super) {
+var ImageFillFragment = /** @class */ (function (_super) {
     __extends(ImageFillFragment, _super);
+    /**
+     * @param tw 拉伸的目标宽度
+     * @param th 拉伸的目标高度
+     */
     function ImageFillFragment(sx, sy, dataSource, tw, th) {
         var _this = _super.call(this, sx, sy, dataSource) || this;
         _this.tw = tw;
         _this.th = th;
         return _this;
     }
+    /**
+     * @return: 沿XY轴拉伸的图片数据
+     */
     ImageFillFragment.prototype.getData = function () {
         var _a = this, tw = _a.tw, th = _a.th, dataSource = _a.dataSource;
         var targetArray = new Uint8ClampedArray(tw * th * 4);

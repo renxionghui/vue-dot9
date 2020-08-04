@@ -16,14 +16,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/*
+ * @Descripttion: 向Y轴拉伸的Image片段
+ * @Date: 2020-07-27 10:27:13
+ */
 var ImageFragment_1 = __importDefault(require("./ImageFragment"));
-var ImageYFragment = (function (_super) {
+var ImageYFragment = /** @class */ (function (_super) {
     __extends(ImageYFragment, _super);
+    /**
+     * @param th 拉伸的目标高度
+     */
     function ImageYFragment(sx, sy, dataSource, th) {
         var _this = _super.call(this, sx, sy, dataSource) || this;
         _this.th = th;
         return _this;
     }
+    /**
+     * @return: 沿Y轴拉伸的图片数据
+     */
     ImageYFragment.prototype.getData = function () {
         var _a = this, sw = _a.sw, sh = _a.sh, th = _a.th, dataSource = _a.dataSource;
         var canvas = document.createElement('canvas');

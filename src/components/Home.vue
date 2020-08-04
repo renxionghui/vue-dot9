@@ -19,6 +19,9 @@
         <div class="box4" v-dot9='option4'>
 
         </div>
+        <!-- <div class="box5" v-dot9='option5'>
+
+        </div> -->
     </div>
 </template>
 
@@ -32,6 +35,7 @@ export default {
             option1: {
                 source: require('../assets/border.png'),
                 resizable: false,
+                filter:'grayscale(1)'
             },
             option2: {
                 source: require('../assets/border.png'),
@@ -47,6 +51,13 @@ export default {
                 source: require('../assets/border.png'),
                 sliceVertical: [24, 48],
                 sliceHorizontal: [24, 48],
+                // source: require('../assets/grid.jpeg'),
+            },
+            option5: {
+                source: require('../assets/header.png'),
+                filter:"blur(5px)"
+                // sliceVertical: [60, 140],
+                // sliceHorizontal: [24, 48],
                 // source: require('../assets/grid.jpeg'),
             },
         }
@@ -79,5 +90,10 @@ export default {
 .box4 {
     width: 400px;
     height: 300px;
+}
+
+.box5{
+    width: 2400px;
+    height: 200px;
 }
 </style>

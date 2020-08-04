@@ -1,16 +1,23 @@
 /*
- * @Descripttion: 将图片分割处理
+ * @Descripttion: 将图片分割处理,按照上-右-下-左的顺序分割图片边框
+ *  ===上===||
+ *  ||      右
+ *  左      ||
+ *  ||===下===
  * @Date: 2020-07-27 09:18:19
  */
 import ImageXFragment from '../fragment/ImageXFragment';
 import ImageYFragment from '../fragment/ImageYFragment';
-// import ImageXYFragment from '../fragment/ImageXYFragment';
+import ImageFillFragment from '../fragment/ImageFillFragment';
+import { filter } from 'vue/types/umd';
+
 class ImageFactory {
     imageData: ImageData;
     targetW: number;
     targetH: number;
     targetCanvas: HTMLCanvasElement;
     sourceCanvas: HTMLCanvasElement;
+
     /**
      * @param imageData:下载的图片数据
      * @param targetW: 最终图片的宽度
@@ -26,46 +33,64 @@ class ImageFactory {
         this.sourceCanvas = document.createElement('canvas');
         this.sourceCanvas.width = imageData.width;
         this.sourceCanvas.height = imageData.height;
-        this.sourceCanvas.getContext('2d')?.putImageData(imageData, 0, 0);
+        const sourceContext = this.sourceCanvas.getContext('2d');
+        sourceContext?.putImageData(imageData, 0, 0);
     }
 
+    /**
+     * 根据指定的xy坐标以及宽高,得到对应的图片数据
+     * @param sx 原始数据x坐标
+     * @param sy 原始数据y坐标
+     * @param sw 图片数据的宽度
+     * @param sh 图片数据的高度
+     * @return: 截取的图片数据
+     */
     private getData(sx: number, sy: number, sw: number, sh: number): ImageData {
         return this.sourceCanvas.getContext('2d')?.getImageData(sx, sy, sw, sh) || new ImageData(0, 0);
     }
 
-    createImage(sliceVertical?: Array<number>, sliceHorizontal?: Array<number>) {
-        this.slice(sliceVertical, sliceHorizontal);
+    /**
+     * 根据水平与垂直分割坐标,分割图片,然后经过拉伸生成最终的背景图片
+     * @param sliceVertical 水平方向上分割的坐标数组
+     * @param sliceHorizontal 垂直方向上分割的坐标数组
+     */
+    createImage(sliceHorizontal?: Array<number>, sliceVertical?: Array<number>) {
+        this.slice(sliceHorizontal, sliceVertical);
         const image = this.merge();
         return image;
     }
 
     /**
      * 分割图片数据
+     * @param sliceHorizontal 水平方向上分割的数组
+     * @param sliceVertical 垂直方向上分割的数组
      */
-    slice(sliceVertical?: Array<number>, sliceHorizontal?: Array<number>) {
+    slice(sliceHorizontal?: Array<number>, sliceVertical?: Array<number>) {
         const { width: sourceW, height: sourceH } = this.imageData;
         const { targetW, targetH } = this;
-        if (!sliceVertical || sliceVertical.length === 0) {
-            sliceVertical = [Math.floor(sourceW / 2)]
-        }
         if (!sliceHorizontal || sliceHorizontal.length === 0) {
-            sliceHorizontal = [Math.floor(sourceH / 2)]
+            sliceHorizontal = [Math.floor(sourceW / 2)]
+        }
+        if (!sliceVertical || sliceVertical.length === 0) {
+            sliceVertical = [Math.floor(sourceH / 2)]
         }
         if (targetW < sourceW || targetH < sourceH || (targetW === sourceW && targetH === sourceH)) {
+            //不需要拉伸
             sliceHorizontal = [];
             sliceVertical = [];
-        } else if (targetW > sourceW && targetH === sourceH) {//只拉伸X轴
-            // sliceHorizontal = [];
+        } else if (targetW > sourceW && targetH === sourceH) {
+            //只拉伸X轴
             sliceVertical = [];
-        } else if (targetW === sourceW && targetH > sourceH) {//只拉伸Y轴
-            // sliceVertical = [];
+        } else if (targetW === sourceW && targetH > sourceH) {
+            //只拉伸Y轴
             sliceHorizontal = [];
         }
 
-        this.sliceTop(sliceVertical, sliceHorizontal);
-        this.sliceRight(sliceVertical, sliceHorizontal);
-        this.sliceBottom(sliceVertical, sliceHorizontal);
-        this.sliceLeft(sliceVertical, sliceHorizontal);
+        this.sliceTop(sliceHorizontal, sliceVertical);
+        this.sliceRight(sliceHorizontal, sliceVertical);
+        this.sliceBottom(sliceHorizontal, sliceVertical);
+        this.sliceLeft(sliceHorizontal, sliceVertical);
+        this.sliceCenter(sliceHorizontal, sliceVertical);
     }
 
     /**
@@ -75,7 +100,10 @@ class ImageFactory {
         return this.targetCanvas.toDataURL();
     }
 
-    sliceTop(sliceVertical: Array<number>, sliceHorizontal: Array<number>) {
+    /**
+     * 处理上边框
+     */
+    sliceTop(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
         const { width, height } = this.imageData;
         const { targetW } = this;
         const context = this.targetCanvas.getContext('2d');
@@ -116,10 +144,12 @@ class ImageFactory {
             const xFragment = new ImageXFragment(xsx, xsy, xData, aw);
             context?.putImageData(xFragment.getData(), txs[2 * i + 1], xsy)
         }
-
     }
 
-    sliceRight(sliceVertical: Array<number>, sliceHorizontal: Array<number>) {
+    /**
+     * 处理右边框
+     */
+    sliceRight(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
         const { width, height } = this.imageData;
         const { targetW, targetH } = this;
         const context = this.targetCanvas.getContext('2d');
@@ -165,7 +195,10 @@ class ImageFactory {
         }
     }
 
-    sliceBottom(sliceVertical: Array<number>, sliceHorizontal: Array<number>) {
+    /**
+     * 处理下边框
+     */
+    sliceBottom(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
         const { width, height } = this.imageData;
         const { targetW, targetH } = this;
         const context = this.targetCanvas.getContext('2d');
@@ -209,12 +242,14 @@ class ImageFactory {
             context?.putImageData(oData, txs[2 * i + 1], ty)
 
         }
-
     }
 
-    sliceLeft(sliceVertical: Array<number>, sliceHorizontal: Array<number>) {
+    /**
+     * 处理左边框
+     */
+    sliceLeft(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
         const { width, height } = this.imageData;
-        const { targetW, targetH } = this;
+        const { targetH } = this;
         const context = this.targetCanvas.getContext('2d');
 
         const len = sliceVertical.length;
@@ -256,10 +291,93 @@ class ImageFactory {
         }
     }
 
-    sliceCenter(){
-        
+    /**
+     * 处理中间区域
+     */
+    sliceCenter(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
+        if (!sliceHorizontal.length || !sliceVertical.length) {
+            return;
+        }
+        const context = this.targetCanvas.getContext('2d');
+        const { width, height } = this.imageData;
+        const { targetW, targetH } = this;
+        const hLen = sliceHorizontal.length;
+        const vLen = sliceVertical.length;
+        const aw = Math.floor((targetW - width) / hLen);
+        const ah = Math.floor((targetH - height) / vLen);
+        //水平方向上片段宽度
+        const htws = [aw];
+        for (let i = 0; i < hLen - 1; i++) {
+            htws.push(sliceHorizontal[i + 1] - sliceHorizontal[i]);
+            htws.push(aw);
+        }
+
+        //垂直方向上片段高度
+        const vths = [ah];
+        for (let i = 0; i < vLen - 1; i++) {
+            vths.push(sliceVertical[i + 1] - sliceVertical[i]);
+            vths.push(ah);
+        }
+
+        let ty = sliceVertical[0];
+        for (let i = 0; i < vths.length; i++) {
+            let tx = sliceHorizontal[0];
+            for (let j = 0; j < htws.length; j++) {
+                //0B01 0B00 j为偶数时,水平方向需要拉伸
+                const hFlag = j % 2 === 0 ? 1 : 0;
+                //0B10 0B00 i为偶数时,垂直方向需要拉伸
+                const vFlag = i % 2 === 0 ? 2 : 0;
+                //0B11:水平垂直拉伸; 0B10:垂直方向拉伸; 0B01:水平方向拉伸; 0B00:不拉伸
+                const flag = hFlag ^ vFlag;
+
+                const sx = sliceHorizontal[Math.ceil(j / 2)];
+                const sy = sliceVertical[Math.ceil(i / 2)];
+                let fragment;
+                let dataSource;
+                if (flag === FillFlag.HV) {
+                    dataSource = this.getData(sx, sy, 1, 1);
+                    dataSource && (fragment = new ImageFillFragment(sx, sy, dataSource, aw, ah));
+                } else if (flag === FillFlag.V) {
+                    dataSource = context?.getImageData(sx, sy, aw, 1);
+                    dataSource && (fragment = new ImageYFragment(sx, sy, dataSource, ah))
+                } else if (flag === FillFlag.H) {
+                    dataSource = context?.getImageData(sx, sy, 1, ah);
+                    dataSource && (fragment = new ImageXFragment(sx, sy, dataSource, aw))
+                } else {
+                    const hIndex = Math.ceil(j / 2);
+                    const sw = sliceHorizontal[hIndex + 1] ?
+                        sliceHorizontal[hIndex + 1] - sliceHorizontal[hIndex] : width - sliceHorizontal[hIndex];
+                    const vIndex = Math.ceil(i / 2);
+                    const sh = sliceVertical[vIndex + 1] ?
+                        sliceVertical[vIndex + 1] - sliceVertical[vIndex] : width - sliceVertical[vIndex];
+                    dataSource = context?.getImageData(sx, sy, sw, sh)
+                }
+                fragment && (dataSource = fragment.getData());
+
+                if (dataSource) {
+                    context?.putImageData(dataSource, tx, ty);
+                }
+                tx += htws[j];
+            }
+            ty += vths[i];
+        }
     }
 }
 
+/**
+ * @field HV:水平,垂直方向拉伸标识
+ * @field V:垂直方向拉伸标识
+ * @field H:水平方向拉伸标识
+ * @field O:无拉伸标识
+ */
+enum FillFlag {
+    HV = 3,
+    V = 2,
+    H = 1,
+    O = 0
+}
 
+enum Filter {
+    A, B, C, D
+}
 export default ImageFactory;

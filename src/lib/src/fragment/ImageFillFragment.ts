@@ -23,7 +23,6 @@ class ImageFillFragment extends ImageFragment {
     getData(): ImageData {
         const { tw, th, dataSource } = this;
         const targetArray = new Uint8ClampedArray(tw * th * 4);
-
         for (let y = 0; y < th; y++) {
             for (let x = 0; x < tw * 4; x++) {
                 targetArray[x + y * tw * 4] = dataSource.data[x % 4];
