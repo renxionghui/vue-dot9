@@ -157,68 +157,38 @@
         "affectsGlobalScope": true
       },
       "../src/util/imageloader.ts": {
-        "version": "a8f6ea2ff7a7f9b147fee96c0ea8ef23add6eb91a952014b126a9daea0926863",
-        "signature": "f4c921db0a232d89f59839bed777631f324e6ca014e6f5a6260a740445cb3287",
+        "version": "7d04052ff0958df247468ab94923ba3bbbabf7deaad10dbf31d3a17c4b185bc2",
+        "signature": "42bb718fd8a8ad959b730c600942f138a3d7109570ecf73f5121a11b1daac0cd",
         "affectsGlobalScope": false
       },
       "../src/fragment/imagefragment.ts": {
-        "version": "62b86281108473262fd60cc3ed8a872da90265636e4e75046a3339156a93f32b",
-        "signature": "dfc062ad06cece61815435ac53a572a13721bf2c96572bf535446fb49f4db334",
+        "version": "ae40e1b04bee112acc76031d67385ce0561837940a0252c5045c550d6088fdc8",
+        "signature": "71bcaa22207b89d51eb7ea871e59416ce594a097ec8f07933e9a3e0cbd69d196",
         "affectsGlobalScope": false
       },
       "../src/fragment/imagexfragment.ts": {
-        "version": "c9977c1795b58649007c75d89b717a775e63d406020aae8f1494231f171b05cd",
-        "signature": "784f73b8213eea68174adb3faf18ed6742ca5e3880800b222cdbf96756f53cf8",
+        "version": "3633a7413082d997a9bd418df02cbfd873c51de8790511afd5d412db297c4bcc",
+        "signature": "8bbeb0cc7da0fb0883dedb7c028cd67ab94f4df2e46d073f338a0774e872eed0",
         "affectsGlobalScope": false
       },
       "../src/fragment/imageyfragment.ts": {
-        "version": "a6ecbe722cb0577bafa73932f39533946c57434c839e8a5a8acaecaa04228cc7",
-        "signature": "48065f30a35dc04f93809a0806db5ca3948602cef14a82c5cc760ed1cae94e1b",
+        "version": "a05dabcb23d16edf20dac04c87ddd857773f3bcdad49a31a1ab041ad9101e018",
+        "signature": "dd813a45960667cdf3db3a979e47ea6bd15557042e91a5df04b37caad3af5fe7",
         "affectsGlobalScope": false
       },
-      "../src/fragment/imagefillfragment.ts": {
-        "version": "66d25cde042cfa61de69943cffa6f811211e47013638ca83f1fbfe43377b39bc",
-        "signature": "2b7f125484d32c82e648289fdf425bf05e2b9205d6823514c6cf40dfa6631bde",
-        "affectsGlobalScope": false
-      },
-      "../../../node_modules/vue/types/vnode.d.ts": {
-        "version": "336721337da7deac683208a3089786c32cd834fd7e992cc2a9de5abd6100d8aa",
-        "signature": "336721337da7deac683208a3089786c32cd834fd7e992cc2a9de5abd6100d8aa",
-        "affectsGlobalScope": false
-      },
-      "../../../node_modules/vue/types/options.d.ts": {
-        "version": "83e2325a245cc898ca63a68dcc0477efd47e97a3343c96547b26545d86a60cfb",
-        "signature": "83e2325a245cc898ca63a68dcc0477efd47e97a3343c96547b26545d86a60cfb",
-        "affectsGlobalScope": false
-      },
-      "../../../node_modules/vue/types/plugin.d.ts": {
-        "version": "e8cc0280272ae461f8dc6eef59712323d9eea7abfd455a8d4861601f3c5a9a6f",
-        "signature": "e8cc0280272ae461f8dc6eef59712323d9eea7abfd455a8d4861601f3c5a9a6f",
-        "affectsGlobalScope": false
-      },
-      "../../../node_modules/vue/types/vue.d.ts": {
-        "version": "c483036e3c3aea2c4b7d435120543bea042a68aa38e56b91344678384357eb27",
-        "signature": "c483036e3c3aea2c4b7d435120543bea042a68aa38e56b91344678384357eb27",
-        "affectsGlobalScope": false
-      },
-      "../../../node_modules/vue/types/index.d.ts": {
-        "version": "4a75e4b3cb109dcf5e977cb8ab1c8f9804073b37fa7f094785ee8014efdeabf4",
-        "signature": "4a75e4b3cb109dcf5e977cb8ab1c8f9804073b37fa7f094785ee8014efdeabf4",
-        "affectsGlobalScope": false
-      },
-      "../../../node_modules/vue/types/umd.d.ts": {
-        "version": "fe4441713df34868b3883ae9532d1390de8456e65534a26c019051bf170a3a93",
-        "signature": "fe4441713df34868b3883ae9532d1390de8456e65534a26c019051bf170a3a93",
+      "../src/fragment/imagexyfragment.ts": {
+        "version": "964ab897f6b9fab1d6f54afa1ffa821b215d5d1363e957b844ddabd1a8252456",
+        "signature": "7ffe694690a41dae5eda5493ddc9602046bf4a7c3bbe8d94f0163ab657e53684",
         "affectsGlobalScope": false
       },
       "../src/util/imagefactory.ts": {
-        "version": "350a2749ba38de90914ef86196ce1081cd765453fe6c120332fa26d218195f89",
-        "signature": "878c19fde7f15d7fe504ebeb8daf9cb53d79579e4975137a94c3acb43f80677a",
+        "version": "40039b145e50944dc195baa6bb330f8be8999e9f0539bc1ce1b9a0a351db3f7e",
+        "signature": "638892c7affb0d4d07a87f8a19c985b4cefbf2b6a75a07d51a72a4661ebbbf98",
         "affectsGlobalScope": false
       },
       "../src/dot9.ts": {
-        "version": "9eaa7ae4ee253935b60b67cda8f3cdb5043dc44e081f4d93bf4212d6e48fc797",
-        "signature": "05b21769008538d30d3bc87e3e811a75d90e8fa86d5653978b5b1add84c4172d",
+        "version": "d55fdc36f8d443a7ef9f9a37338b7797cb3e994ef081e7e71020d368ea232ca9",
+        "signature": "c98bcd394a49d7a17ca14d9adda1408903bab91f722c36f1dd65e113bc4616e7",
         "affectsGlobalScope": false
       },
       "../../../node_modules/@types/color-name/index.d.ts": {
@@ -1087,68 +1057,6 @@
         "../../../node_modules/@types/node/ts3.2/util.d.ts",
         "../../../node_modules/@types/node/util.d.ts"
       ],
-      "../../../node_modules/vue/types/index.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/options.d.ts",
-        "../../../node_modules/vue/types/plugin.d.ts",
-        "../../../node_modules/vue/types/umd.d.ts",
-        "../../../node_modules/vue/types/vnode.d.ts",
-        "../../../node_modules/vue/types/vue.d.ts"
-      ],
-      "../../../node_modules/vue/types/options.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/vnode.d.ts",
-        "../../../node_modules/vue/types/vue.d.ts"
-      ],
-      "../../../node_modules/vue/types/plugin.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/vue.d.ts"
-      ],
-      "../../../node_modules/vue/types/umd.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/index.d.ts",
-        "../../../node_modules/vue/types/options.d.ts"
-      ],
-      "../../../node_modules/vue/types/vnode.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/vue.d.ts"
-      ],
-      "../../../node_modules/vue/types/vue.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/options.d.ts",
-        "../../../node_modules/vue/types/plugin.d.ts",
-        "../../../node_modules/vue/types/vnode.d.ts"
-      ],
       "../src/dot9.ts": [
         "../../../node_modules/@types/node/fs.d.ts",
         "../../../node_modules/@types/node/process.d.ts",
@@ -1156,18 +1064,8 @@
         "../../../node_modules/@types/node/ts3.2/process.d.ts",
         "../../../node_modules/@types/node/ts3.2/util.d.ts",
         "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/umd.d.ts",
         "../src/util/imagefactory.ts",
         "../src/util/imageloader.ts"
-      ],
-      "../src/fragment/imagefillfragment.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../src/fragment/imagefragment.ts"
       ],
       "../src/fragment/imagefragment.ts": [
         "../../../node_modules/@types/node/fs.d.ts",
@@ -1178,6 +1076,15 @@
         "../../../node_modules/@types/node/util.d.ts"
       ],
       "../src/fragment/imagexfragment.ts": [
+        "../../../node_modules/@types/node/fs.d.ts",
+        "../../../node_modules/@types/node/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../../node_modules/@types/node/ts3.2/process.d.ts",
+        "../../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../../node_modules/@types/node/util.d.ts",
+        "../src/fragment/imagefragment.ts"
+      ],
+      "../src/fragment/imagexyfragment.ts": [
         "../../../node_modules/@types/node/fs.d.ts",
         "../../../node_modules/@types/node/process.d.ts",
         "../../../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -1202,9 +1109,9 @@
         "../../../node_modules/@types/node/ts3.2/process.d.ts",
         "../../../node_modules/@types/node/ts3.2/util.d.ts",
         "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/umd.d.ts",
-        "../src/fragment/imagefillfragment.ts",
+        "../src/fragment/imagefragment.ts",
         "../src/fragment/imagexfragment.ts",
+        "../src/fragment/imagexyfragment.ts",
         "../src/fragment/imageyfragment.ts"
       ],
       "../src/util/imageloader.ts": [
@@ -2026,72 +1933,10 @@
         "../../../node_modules/@types/node/ts3.2/util.d.ts",
         "../../../node_modules/@types/node/util.d.ts"
       ],
-      "../../../node_modules/vue/types/index.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/options.d.ts",
-        "../../../node_modules/vue/types/plugin.d.ts",
-        "../../../node_modules/vue/types/umd.d.ts",
-        "../../../node_modules/vue/types/vnode.d.ts",
-        "../../../node_modules/vue/types/vue.d.ts"
-      ],
-      "../../../node_modules/vue/types/options.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/vnode.d.ts",
-        "../../../node_modules/vue/types/vue.d.ts"
-      ],
-      "../../../node_modules/vue/types/plugin.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/vue.d.ts"
-      ],
-      "../../../node_modules/vue/types/umd.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/index.d.ts",
-        "../../../node_modules/vue/types/options.d.ts"
-      ],
-      "../../../node_modules/vue/types/vnode.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/vue.d.ts"
-      ],
-      "../../../node_modules/vue/types/vue.d.ts": [
-        "../../../node_modules/@types/node/fs.d.ts",
-        "../../../node_modules/@types/node/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../../node_modules/@types/node/ts3.2/process.d.ts",
-        "../../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../../node_modules/@types/node/util.d.ts",
-        "../../../node_modules/vue/types/options.d.ts",
-        "../../../node_modules/vue/types/plugin.d.ts",
-        "../../../node_modules/vue/types/vnode.d.ts"
-      ],
-      "../src/fragment/imagefillfragment.ts": [
+      "../src/fragment/imagexfragment.ts": [
         "../src/fragment/imagefragment.ts"
       ],
-      "../src/fragment/imagexfragment.ts": [
+      "../src/fragment/imagexyfragment.ts": [
         "../src/fragment/imagefragment.ts"
       ],
       "../src/fragment/imageyfragment.ts": [
@@ -2405,16 +2250,10 @@
       "../../../node_modules/@types/node/zlib.d.ts",
       "../../../node_modules/@types/normalize-package-data/index.d.ts",
       "../../../node_modules/@types/q/index.d.ts",
-      "../../../node_modules/vue/types/index.d.ts",
-      "../../../node_modules/vue/types/options.d.ts",
-      "../../../node_modules/vue/types/plugin.d.ts",
-      "../../../node_modules/vue/types/umd.d.ts",
-      "../../../node_modules/vue/types/vnode.d.ts",
-      "../../../node_modules/vue/types/vue.d.ts",
       "../src/dot9.ts",
-      "../src/fragment/imagefillfragment.ts",
       "../src/fragment/imagefragment.ts",
       "../src/fragment/imagexfragment.ts",
+      "../src/fragment/imagexyfragment.ts",
       "../src/fragment/imageyfragment.ts",
       "../src/util/imagefactory.ts",
       "../src/util/imageloader.ts",

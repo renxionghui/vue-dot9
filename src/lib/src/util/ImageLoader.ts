@@ -1,42 +1,29 @@
 /*
-import { filter } from 'vue/types/umd';
- * @Descripttion: 图片下载
- * @Date: 2020-07-25 17:00:09
+ * 图片加载
  */
 class ImageLoader {
     /**
-     * @msg: 下载图片转换成dataUrl,绘制在画布上,得到需要处理的原始ImageData
+     * @msg: 加载图片,得到需要处理的原始ImageData
      * @param 图片地址 
      * @return: 图片下载数据Promise
      */
-    static load(source: string,filter = 'none'): Promise<ImageData> {
-        const image = new Image();
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
+    public static load(source: string): Promise<ImageData> {
+        const image: HTMLImageElement = new Image();
+        const canvas: HTMLCanvasElement = document.createElement('canvas');
+        const context: CanvasRenderingContext2D = <CanvasRenderingContext2D>canvas.getContext('2d');
         return new Promise((resolve, reject) => {
-            fetch(source).then(res => {
-                return res.blob();
-            }).then(blob => {
-                let reader = new FileReader();
-                reader.readAsDataURL(new Blob([blob]));
-                reader.onload = function (e) {
-                    if (typeof e.target?.result === 'string') {
-                        image.src = e.target.result;
-                    }
-                };
-                image.onload = function () {
-                    image.style.filter = filter;
-                    document.body.appendChild(image);
-                    image.style.display = 'none';
-                    canvas.width = image.width;
-                    canvas.height = image.height;
-                    context?.drawImage(image, 0, 0);
-                    // document.removeChild(image)
-                    resolve(context?.getImageData(0, 0, image.width, image.height))
-                }
-            }).catch(err => {
-                reject(err);
-            })
+            image.src = source;
+            image.addEventListener('load', function () {
+                const ratio: number = window.devicePixelRatio || 1;
+                const { width, height } = image;
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage(image, 0, 0, width, height);
+                resolve(context.getImageData(0, 0, width, height))
+            }, { once: true })
+            image.addEventListener('error', function (error: ErrorEvent) {
+                reject(error)
+            }, { once: true })
         })
     }
 }

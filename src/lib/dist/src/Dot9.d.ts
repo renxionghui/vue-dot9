@@ -19,6 +19,5 @@ interface Options {
     resizable: boolean;
     sliceVertical?: Array<number>;
     sliceHorizontal?: Array<number>;
-    filter?: string;
 }
 export default Dot9;

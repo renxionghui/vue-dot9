@@ -1,5 +1,5 @@
 import ImageFragment from './ImageFragment';
-declare class ImageFillFragment extends ImageFragment {
+declare class ImageXYFragment extends ImageFragment {
     tw: number;
     th: number;
     /**
@@ -8,8 +8,9 @@ declare class ImageFillFragment extends ImageFragment {
      */
     constructor(sx: number, sy: number, sourceData: ImageData, tw: number, th: number);
     /**
+     * 将1个像素的颜色铺满 tw th
      * @return: 沿XY轴拉伸的图片数据
      */
     getData(): ImageData;
 }
-export default ImageFillFragment;
+export default ImageXYFragment;

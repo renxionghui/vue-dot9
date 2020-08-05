@@ -1,22 +1,23 @@
 /*
- * @Descripttion: 将图片分割处理,按照上-右-下-左的顺序分割图片边框
+ * 将图片分割处理,按照上-右-下-左的顺序分割图片边框
  *  ===上===||
  *  ||      右
  *  左      ||
  *  ||===下===
- * @Date: 2020-07-27 09:18:19
  */
 import ImageXFragment from '../fragment/ImageXFragment';
 import ImageYFragment from '../fragment/ImageYFragment';
-import ImageFillFragment from '../fragment/ImageFillFragment';
-import { filter } from 'vue/types/umd';
+import ImageXYFragment from '../fragment/ImageXYFragment';
+import ImageFragment from '../fragment/ImageFragment';
 
 class ImageFactory {
-    imageData: ImageData;
-    targetW: number;
-    targetH: number;
-    targetCanvas: HTMLCanvasElement;
-    sourceCanvas: HTMLCanvasElement;
+    private sourceW: number;
+    private sourceH: number;
+    private targetW: number;
+    private targetH: number;
+    private targetCanvas: HTMLCanvasElement;
+    private targetContext: CanvasRenderingContext2D;
+    private sourceContext: CanvasRenderingContext2D;
 
     /**
      * @param imageData:下载的图片数据
@@ -24,17 +25,23 @@ class ImageFactory {
      * @param targetH: 最终图片的高度
      */
     constructor(imageData: ImageData, targetW: number, targetH: number) {
-        this.imageData = imageData;
+        const ratio: number = window.devicePixelRatio || 1;
+
+        this.sourceW = imageData.width;
+        this.sourceH = imageData.height;
+
         this.targetW = targetW;
         this.targetH = targetH;
+
         this.targetCanvas = document.createElement('canvas');
         this.targetCanvas.width = targetW;
         this.targetCanvas.height = targetH;
-        this.sourceCanvas = document.createElement('canvas');
-        this.sourceCanvas.width = imageData.width;
-        this.sourceCanvas.height = imageData.height;
-        const sourceContext = this.sourceCanvas.getContext('2d');
-        sourceContext?.putImageData(imageData, 0, 0);
+        this.targetContext = <CanvasRenderingContext2D>this.targetCanvas.getContext('2d');
+        const sourceCanvas: HTMLCanvasElement = document.createElement('canvas');
+        sourceCanvas.width = imageData.width;
+        sourceCanvas.height = imageData.height;
+        this.sourceContext = <CanvasRenderingContext2D>sourceCanvas.getContext('2d');
+        this.sourceContext.putImageData(imageData, 0, 0);
     }
 
     /**
@@ -46,18 +53,19 @@ class ImageFactory {
      * @return: 截取的图片数据
      */
     private getData(sx: number, sy: number, sw: number, sh: number): ImageData {
-        return this.sourceCanvas.getContext('2d')?.getImageData(sx, sy, sw, sh) || new ImageData(0, 0);
+        return <ImageData>this.sourceContext.getImageData(sx, sy, sw, sh);
     }
 
     /**
      * 根据水平与垂直分割坐标,分割图片,然后经过拉伸生成最终的背景图片
      * @param sliceVertical 水平方向上分割的坐标数组
      * @param sliceHorizontal 垂直方向上分割的坐标数组
+     * @return: 图片数据
      */
-    createImage(sliceHorizontal?: Array<number>, sliceVertical?: Array<number>) {
+    public createImage(sliceHorizontal?: Array<number>, sliceVertical?: Array<number>): string {
         this.slice(sliceHorizontal, sliceVertical);
-        const image = this.merge();
-        return image;
+        
+        return this.targetCanvas.toDataURL();
     }
 
     /**
@@ -65,14 +73,13 @@ class ImageFactory {
      * @param sliceHorizontal 水平方向上分割的数组
      * @param sliceVertical 垂直方向上分割的数组
      */
-    slice(sliceHorizontal?: Array<number>, sliceVertical?: Array<number>) {
-        const { width: sourceW, height: sourceH } = this.imageData;
-        const { targetW, targetH } = this;
+    private slice(sliceHorizontal?: Array<number>, sliceVertical?: Array<number>) {
+        const { sourceW, sourceH, targetW, targetH } = this;
         if (!sliceHorizontal || sliceHorizontal.length === 0) {
-            sliceHorizontal = [Math.floor(sourceW / 2)]
+            sliceHorizontal = [Math.ceil(sourceW / 2)]
         }
         if (!sliceVertical || sliceVertical.length === 0) {
-            sliceVertical = [Math.floor(sourceH / 2)]
+            sliceVertical = [Math.ceil(sourceH / 2)]
         }
         if (targetW < sourceW || targetH < sourceH || (targetW === sourceW && targetH === sourceH)) {
             //不需要拉伸
@@ -94,32 +101,23 @@ class ImageFactory {
     }
 
     /**
-     * 合并图片数据
+     * 处理上边框 原始数据-拉伸数据...-原始数据-拉伸数据
      */
-    merge() {
-        return this.targetCanvas.toDataURL();
-    }
+    private sliceTop(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
+        const { sourceW, sourceH, targetW, targetContext } = this;
 
-    /**
-     * 处理上边框
-     */
-    sliceTop(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
-        const { width, height } = this.imageData;
-        const { targetW } = this;
-        const context = this.targetCanvas.getContext('2d');
-
-        const len = sliceHorizontal.length;
-        const sy = 0;
-        const sh = sliceVertical.length ? sliceVertical[0] : height / 2;
+        const len: number = sliceHorizontal.length;
+        const sy: number = 0;
+        const sh: number = sliceVertical.length ? sliceVertical[0] : sourceH / 2;
         if (len === 0) {
-            const sx = 0;
-            const sw = width / 2;
-            const dataSource = this.getData(sx, sy, sw, sh)
-            context?.putImageData(dataSource, sx, sy);
+            const sx: number = 0;
+            const sw: number = sourceW / 2;
+            const sourceData: ImageData = this.getData(sx, sy, sw, sh)
+            targetContext.putImageData(sourceData, sx, sy);
             return
         }
 
-        const aw = Math.floor((targetW - width) / len);
+        const aw: number = Math.ceil((targetW - sourceW) / len);
         let sxs: Array<number> = [0];
         let txs: Array<number> = [0];
         for (let i = 0; i < len; i++) {
@@ -129,43 +127,41 @@ class ImageFactory {
         }
         for (let i = 0; i < len; i++) {
             //原数据
-            const osx = sxs[i];
-            const osy = sy;
-            const osw = sxs[i + 1] - sxs[i];
-            const osh = sh;
-            const oData = this.getData(osx, osy, osw, osh);
-            context?.putImageData(oData, txs[2 * i], osy)
+            const osx: number = sxs[i];
+            const osy: number = sy;
+            const osw: number = sxs[i + 1] - sxs[i];
+            const osh: number = sh;
+            const oData: ImageData = this.getData(osx, osy, osw, osh);
+            targetContext.putImageData(oData, txs[2 * i], osy)
             //沿X轴拉伸的数据
-            const xsx = sxs[i + 1];
-            const xsy = sy;
-            const xsw = 1;
-            const xsh = sh;
-            const xData = this.getData(xsx, xsy, xsw, xsh);
-            const xFragment = new ImageXFragment(xsx, xsy, xData, aw);
-            context?.putImageData(xFragment.getData(), txs[2 * i + 1], xsy)
+            const xsx: number = sxs[i + 1];
+            const xsy: number = sy;
+            const xsw: number = 1;
+            const xsh: number = sh;
+            const xData: ImageData = this.getData(xsx, xsy, xsw, xsh);
+            const xFragment: ImageXFragment = new ImageXFragment(xsx, xsy, xData, aw);
+            targetContext.putImageData(xFragment.getData(), txs[2 * i + 1], xsy)
         }
     }
 
     /**
-     * 处理右边框
+     * 处理右边框 原始数据-拉伸数据...-原始数据-拉伸数据
      */
-    sliceRight(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
-        const { width, height } = this.imageData;
-        const { targetW, targetH } = this;
-        const context = this.targetCanvas.getContext('2d');
+    private sliceRight(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
+        const { sourceW, sourceH, targetW, targetH, targetContext } = this;
 
-        const len = sliceVertical.length;
-        const sx = sliceHorizontal.length ? sliceHorizontal[sliceHorizontal.length - 1] : width / 2;
-        const sw = sliceHorizontal.length ? width - sliceHorizontal[sliceHorizontal.length - 1] : width / 2;
-        const tx = sliceHorizontal.length ? targetW - sw : width / 2;
+        const len: number = sliceVertical.length;
+        const sx: number = sliceHorizontal.length ? sliceHorizontal[sliceHorizontal.length - 1] : sourceW / 2;
+        const sw: number = sliceHorizontal.length ? sourceW - sliceHorizontal[sliceHorizontal.length - 1] : sourceW / 2;
+        const tx: number = sliceHorizontal.length ? targetW - sw : sourceW / 2;
         if (len === 0) {
-            const sy = 0;
-            const sh = height / 2;
-            const dataSource = this.getData(sx, sy, sw, sh)
-            context?.putImageData(dataSource, targetW - sw, sy);
+            const sy: number = 0;
+            const sh: number = sourceH / 2;
+            const sourceData: ImageData = this.getData(sx, sy, sw, sh)
+            targetContext.putImageData(sourceData, targetW - sw, sy);
             return
         }
-        const ah = Math.floor((targetH - height) / len);
+        const ah: number = Math.ceil((targetH - sourceH) / len);
         let sys: Array<number> = [0];
         let tys: Array<number> = [0];
 
@@ -175,47 +171,44 @@ class ImageFactory {
             tys.push(sliceVertical[i] + ah * (i + 1));
         }
 
-
         for (let i = 0; i < len; i++) {
             //原数据
-            const osx = sx;
-            const osy = sys[i];
-            const osw = sw;
-            const osh = sys[i + 1] - sys[i];
-            const oData = this.getData(osx, osy, osw, osh);
-            context?.putImageData(oData, tx, tys[2 * i])
+            const osx: number = sx;
+            const osy: number = sys[i];
+            const osw: number = sw;
+            const osh: number = sys[i + 1] - sys[i];
+            const oData: ImageData = this.getData(osx, osy, osw, osh);
+            targetContext.putImageData(oData, tx, tys[2 * i])
             //沿Y轴拉伸的数据
-            const ysx = sx;
-            const ysy = sys[i + 1];
-            const ysw = sw;
-            const ysh = 1;
-            const yData = this.getData(ysx, ysy, ysw, ysh);
-            const yFragment = new ImageYFragment(ysx, ysy, yData, ah);
-            context?.putImageData(yFragment.getData(), tx, tys[2 * i + 1])
+            const ysx: number = sx;
+            const ysy: number = sys[i + 1];
+            const ysw: number = sw;
+            const ysh: number = 1;
+            const yData: ImageData = this.getData(ysx, ysy, ysw, ysh);
+            const yFragment: ImageYFragment = new ImageYFragment(ysx, ysy, yData, ah);
+            targetContext.putImageData(yFragment.getData(), tx, tys[2 * i + 1])
         }
     }
 
     /**
-     * 处理下边框
+     * 处理下边框 拉伸数据-原始数据...-拉伸数据-原始数据
      */
-    sliceBottom(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
-        const { width, height } = this.imageData;
-        const { targetW, targetH } = this;
-        const context = this.targetCanvas.getContext('2d');
+    private sliceBottom(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
+        const { sourceW, sourceH, targetW, targetH, targetContext } = this;
 
-        const len = sliceHorizontal.length;
-        const sy = sliceVertical.length ? sliceVertical[sliceVertical.length - 1] : height / 2;
-        const sh = sliceVertical.length ? height - sliceVertical[sliceVertical.length - 1] : height / 2;
-        const ty = sliceVertical.length ? targetH - sh : height / 2;
+        const len: number = sliceHorizontal.length;
+        const sy: number = sliceVertical.length ? sliceVertical[sliceVertical.length - 1] : sourceH / 2;
+        const sh: number = sliceVertical.length ? sourceH - sliceVertical[sliceVertical.length - 1] : sourceH / 2;
+        const ty: number = sliceVertical.length ? targetH - sh : sourceH / 2;
         if (len === 0) {
-            const sx = width / 2;
-            const sw = width / 2;
-            const dataSource = this.getData(sx, sy, sw, sh)
-            context?.putImageData(dataSource, sx, targetH - sh);
+            const sx: number = sourceW / 2;
+            const sw: number = sourceW / 2;
+            const sourceData: ImageData = this.getData(sx, sy, sw, sh)
+            targetContext.putImageData(sourceData, sx, targetH - sh);
             return
         }
 
-        const aw = Math.floor((targetW - width) / len);
+        const aw: number = Math.ceil((targetW - sourceW) / len);
         const sxs: Array<number> = [];
         const txs: Array<number> = [];
         for (let i = 0; i < len; i++) {
@@ -226,43 +219,41 @@ class ImageFactory {
 
         for (let i = 0; i < len; i++) {
             //沿X轴拉伸的数据
-            const xsx = sxs[i];
-            const xsy = sy;
-            const xsw = 1;
-            const xsh = sh;
-            const xData = this.getData(xsx, xsy, xsw, xsh);
-            const xFragment = new ImageXFragment(xsx, xsy, xData, aw);
-            context?.putImageData(xFragment.getData(), txs[2 * i], ty)
+            const xsx: number = sxs[i];
+            const xsy: number = sy;
+            const xsw: number = 1;
+            const xsh: number = sh;
+            const xData: ImageData = this.getData(xsx, xsy, xsw, xsh);
+            const xFragment: ImageXFragment = new ImageXFragment(xsx, xsy, xData, aw);
+            targetContext.putImageData(xFragment.getData(), txs[2 * i], ty)
             //原数据
-            const osx = sxs[i];
-            const osy = sy;
-            const osw = sxs[i + 1] ? sxs[i + 1] - sxs[i] : width - sxs[i];
-            const osh = sh;
-            const oData = this.getData(osx, osy, osw, osh);
-            context?.putImageData(oData, txs[2 * i + 1], ty)
-
+            const osx: number = sxs[i];
+            const osy: number = sy;
+            const osw: number = sxs[i + 1] ? sxs[i + 1] - sxs[i] : sourceW - sxs[i];
+            const osh: number = sh;
+            const oData: ImageData = this.getData(osx, osy, osw, osh);
+            targetContext.putImageData(oData, txs[2 * i + 1], ty)
         }
     }
 
     /**
-     * 处理左边框
+     * 处理左边框 拉伸数据-原始数据...-拉伸数据-原始数据
      */
-    sliceLeft(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
-        const { width, height } = this.imageData;
-        const { targetH } = this;
-        const context = this.targetCanvas.getContext('2d');
+    private sliceLeft(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
+        const { sourceW, sourceH, targetH, targetContext } = this;
 
-        const len = sliceVertical.length;
-        const sx = 0;
-        const sw = sliceHorizontal.length ? width - sliceHorizontal[sliceHorizontal.length - 1] : width / 2;
+        const len: number = sliceVertical.length;
+        const sx: number = 0;
+        const sw: number = sliceHorizontal.length ? sourceW - sliceHorizontal[sliceHorizontal.length - 1] : sourceW / 2;
         if (len === 0) {
-            const sy = height / 2;
-            const sh = height / 2;
-            const dataSource = this.getData(sx, sy, sw, sh)
-            context?.putImageData(dataSource, sx, sy);
+            const sy: number = sourceH / 2;
+            const sh: number = sourceH / 2;
+            const sourceData: ImageData = this.getData(sx, sy, sw, sh)
+            targetContext.putImageData(sourceData, sx, sy);
             return
         }
-        const ah = Math.floor((targetH - height) / len);
+
+        const ah: number = Math.ceil((targetH - sourceH) / len);
         let sys: Array<number> = [];
         let tys: Array<number> = [];
 
@@ -274,92 +265,108 @@ class ImageFactory {
 
         for (let i = 0; i < len; i++) {
             //沿Y轴拉伸的数据
-            const ysx = sx;
-            const ysy = sys[i];
-            const ysw = sw;
-            const ysh = 1;
-            const yData = this.getData(ysx, ysy, ysw, ysh);
-            const yFragment = new ImageYFragment(ysx, ysy, yData, ah);
-            context?.putImageData(yFragment.getData(), ysx, tys[2 * i])
+            const ysx: number = sx;
+            const ysy: number = sys[i];
+            const ysw: number = sw;
+            const ysh: number = 1;
+            const yData: ImageData = this.getData(ysx, ysy, ysw, ysh);
+            const yFragment: ImageYFragment = new ImageYFragment(ysx, ysy, yData, ah);
+            targetContext.putImageData(yFragment.getData(), ysx, tys[2 * i])
             //原数据
-            const osx = sx;
-            const osy = sys[i];
-            const osw = sw;
-            const osh = sys[i + 1] ? sys[i + 1] - sys[i] : height - sys[i];
-            const oData = this.getData(osx, osy, osw, osh);
-            context?.putImageData(oData, osx, tys[2 * i + 1])
+            const osx: number = sx;
+            const osy: number = sys[i];
+            const osw: number = sw;
+            const osh: number = sys[i + 1] ? sys[i + 1] - sys[i] : sourceH - sys[i];
+            const oData: ImageData = this.getData(osx, osy, osw, osh);
+            targetContext.putImageData(oData, osx, tys[2 * i + 1])
         }
     }
 
     /**
      * 处理中间区域
+     * XY拉伸 - Y拉伸 - XY拉伸... - Y拉伸 - XY拉伸
+     *  |        |       |         |       |
+     * X拉伸  - 原始  - X拉伸...  - 原始  - X拉伸
+     *  |        |       |         |       |
+     * XY拉伸 - Y拉伸 - XY拉伸... - Y拉伸 - XY拉伸
+     * ...      ...     ...       ...     ...
+     *  |        |       |         |       |
+     * X拉伸  - 原始  - X拉伸...  - 原始  - X拉伸
+     *  |        |       |         |       |
+     * XY拉伸 - Y拉伸 - XY拉伸... - Y拉伸 - XY拉伸
      */
-    sliceCenter(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
+    private sliceCenter(sliceHorizontal: Array<number>, sliceVertical: Array<number>) {
         if (!sliceHorizontal.length || !sliceVertical.length) {
             return;
         }
-        const context = this.targetCanvas.getContext('2d');
-        const { width, height } = this.imageData;
-        const { targetW, targetH } = this;
-        const hLen = sliceHorizontal.length;
-        const vLen = sliceVertical.length;
-        const aw = Math.floor((targetW - width) / hLen);
-        const ah = Math.floor((targetH - height) / vLen);
+
+        const { sourceW, sourceH, targetW, targetH, targetContext } = this;
+        const hLen: number = sliceHorizontal.length;
+        const vLen: number = sliceVertical.length;
+        const aw: number = Math.ceil((targetW - sourceW) / hLen);
+        const ah: number = Math.ceil((targetH - sourceH) / vLen);
         //水平方向上片段宽度
-        const htws = [aw];
+        const htws: Array<number> = [aw];
         for (let i = 0; i < hLen - 1; i++) {
             htws.push(sliceHorizontal[i + 1] - sliceHorizontal[i]);
             htws.push(aw);
         }
 
         //垂直方向上片段高度
-        const vths = [ah];
+        const vths: Array<number> = [ah];
         for (let i = 0; i < vLen - 1; i++) {
             vths.push(sliceVertical[i + 1] - sliceVertical[i]);
             vths.push(ah);
         }
-
-        let ty = sliceVertical[0];
+        let ty: number = sliceVertical[0];
         for (let i = 0; i < vths.length; i++) {
-            let tx = sliceHorizontal[0];
+            let tx: number = sliceHorizontal[0];
             for (let j = 0; j < htws.length; j++) {
                 //0B01 0B00 j为偶数时,水平方向需要拉伸
-                const hFlag = j % 2 === 0 ? 1 : 0;
+                const hFlag: number = j % 2 === 0 ? 1 : 0;
                 //0B10 0B00 i为偶数时,垂直方向需要拉伸
-                const vFlag = i % 2 === 0 ? 2 : 0;
+                const vFlag: number = i % 2 === 0 ? 2 : 0;
                 //0B11:水平垂直拉伸; 0B10:垂直方向拉伸; 0B01:水平方向拉伸; 0B00:不拉伸
-                const flag = hFlag ^ vFlag;
+                const flag: number = hFlag ^ vFlag;
 
-                const sx = sliceHorizontal[Math.ceil(j / 2)];
-                const sy = sliceVertical[Math.ceil(i / 2)];
-                let fragment;
-                let dataSource;
-                if (flag === FillFlag.HV) {
-                    dataSource = this.getData(sx, sy, 1, 1);
-                    dataSource && (fragment = new ImageFillFragment(sx, sy, dataSource, aw, ah));
-                } else if (flag === FillFlag.V) {
-                    dataSource = context?.getImageData(sx, sy, aw, 1);
-                    dataSource && (fragment = new ImageYFragment(sx, sy, dataSource, ah))
-                } else if (flag === FillFlag.H) {
-                    dataSource = context?.getImageData(sx, sy, 1, ah);
-                    dataSource && (fragment = new ImageXFragment(sx, sy, dataSource, aw))
-                } else {
-                    const hIndex = Math.ceil(j / 2);
-                    const sw = sliceHorizontal[hIndex + 1] ?
-                        sliceHorizontal[hIndex + 1] - sliceHorizontal[hIndex] : width - sliceHorizontal[hIndex];
-                    const vIndex = Math.ceil(i / 2);
-                    const sh = sliceVertical[vIndex + 1] ?
-                        sliceVertical[vIndex + 1] - sliceVertical[vIndex] : width - sliceVertical[vIndex];
-                    dataSource = context?.getImageData(sx, sy, sw, sh)
-                }
-                fragment && (dataSource = fragment.getData());
+                const sx: number = sliceHorizontal[Math.floor(j / 2)];
+                const sy: number = sliceVertical[Math.floor(i / 2)];
 
-                if (dataSource) {
-                    context?.putImageData(dataSource, tx, ty);
+                let fragment: ImageFragment;
+                let sourceData: ImageData;
+
+                switch (flag) {
+                    case FillFlag.HV:
+                        sourceData = this.getData(sx, sy, 1, 1);
+                        fragment = new ImageXYFragment(sx, sy, sourceData, aw, ah);
+                        targetContext.putImageData(fragment.getData(), tx, ty);
+                        break;
+                    case FillFlag.V:
+                        sourceData = this.getData(sx, sy, htws[j], 1);
+                        fragment = new ImageYFragment(sx, sy, sourceData, ah)
+                        targetContext.putImageData(fragment.getData(), tx, ty);
+                        break;
+                    case FillFlag.H:
+                        sourceData = this.getData(sx, sy, 1, vths[i]);
+                        fragment = new ImageXFragment(sx, sy, sourceData, aw)
+                        targetContext.putImageData(fragment.getData(), tx, ty);
+                        break;
+                    case FillFlag.O:
+                        const hIndex: number = Math.floor(j / 2);
+                        const vIndex: number = Math.floor(i / 2);
+                        const sw: number = sliceHorizontal[hIndex + 1] - sliceHorizontal[hIndex];
+                        const sh: number = sliceVertical[vIndex + 1] - sliceVertical[vIndex];
+                        sourceData = this.getData(sx, sy, sw, sh);
+                        fragment = new ImageFragment(sx, sy, sourceData);
+                        targetContext.putImageData(fragment.getData(), tx, ty);
+                        break;
+                    default:
+                        break;
                 }
                 tx += htws[j];
             }
             ty += vths[i];
+
         }
     }
 }
@@ -377,7 +384,4 @@ enum FillFlag {
     O = 0
 }
 
-enum Filter {
-    A, B, C, D
-}
 export default ImageFactory;

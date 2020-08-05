@@ -1,9 +1,11 @@
 declare class ImageFactory {
-    imageData: ImageData;
-    targetW: number;
-    targetH: number;
-    targetCanvas: HTMLCanvasElement;
-    sourceCanvas: HTMLCanvasElement;
+    private sourceW;
+    private sourceH;
+    private targetW;
+    private targetH;
+    private targetCanvas;
+    private targetContext;
+    private sourceContext;
     /**
      * @param imageData:下载的图片数据
      * @param targetW: 最终图片的宽度
@@ -23,6 +25,7 @@ declare class ImageFactory {
      * 根据水平与垂直分割坐标,分割图片,然后经过拉伸生成最终的背景图片
      * @param sliceVertical 水平方向上分割的坐标数组
      * @param sliceHorizontal 垂直方向上分割的坐标数组
+     * @return: 图片数据
      */
     createImage(sliceHorizontal?: Array<number>, sliceVertical?: Array<number>): string;
     /**
@@ -30,30 +33,36 @@ declare class ImageFactory {
      * @param sliceHorizontal 水平方向上分割的数组
      * @param sliceVertical 垂直方向上分割的数组
      */
-    slice(sliceHorizontal?: Array<number>, sliceVertical?: Array<number>): void;
+    private slice;
     /**
-     * 合并图片数据
+     * 处理上边框 原始数据-拉伸数据...-原始数据-拉伸数据
      */
-    merge(): string;
+    private sliceTop;
     /**
-     * 处理上边框
+     * 处理右边框 原始数据-拉伸数据...-原始数据-拉伸数据
      */
-    sliceTop(sliceHorizontal: Array<number>, sliceVertical: Array<number>): void;
+    private sliceRight;
     /**
-     * 处理右边框
+     * 处理下边框 拉伸数据-原始数据...-拉伸数据-原始数据
      */
-    sliceRight(sliceHorizontal: Array<number>, sliceVertical: Array<number>): void;
+    private sliceBottom;
     /**
-     * 处理下边框
+     * 处理左边框 拉伸数据-原始数据...-拉伸数据-原始数据
      */
-    sliceBottom(sliceHorizontal: Array<number>, sliceVertical: Array<number>): void;
-    /**
-     * 处理左边框
-     */
-    sliceLeft(sliceHorizontal: Array<number>, sliceVertical: Array<number>): void;
+    private sliceLeft;
     /**
      * 处理中间区域
+     * XY拉伸 - Y拉伸 - XY拉伸... - Y拉伸 - XY拉伸
+     *  |        |       |         |       |
+     * X拉伸  - 原始  - X拉伸...  - 原始  - X拉伸
+     *  |        |       |         |       |
+     * XY拉伸 - Y拉伸 - XY拉伸... - Y拉伸 - XY拉伸
+     * ...      ...     ...       ...     ...
+     *  |        |       |         |       |
+     * X拉伸  - 原始  - X拉伸...  - 原始  - X拉伸
+     *  |        |       |         |       |
+     * XY拉伸 - Y拉伸 - XY拉伸... - Y拉伸 - XY拉伸
      */
-    sliceCenter(sliceHorizontal: Array<number>, sliceVertical: Array<number>): void;
+    private sliceCenter;
 }
 export default ImageFactory;

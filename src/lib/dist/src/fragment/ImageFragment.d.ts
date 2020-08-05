@@ -3,13 +3,13 @@ declare class ImageFragment {
     sy: number;
     sw: number;
     sh: number;
-    dataSource: ImageData;
+    sourceData: ImageData;
     /**
      * @param sx 数据原始X轴坐标
      * @param sy 数据原始Y轴坐标
-     * @param dataSource 原始图片数据
+     * @param sourceData 原始图片数据
      */
-    constructor(sx: number, sy: number, dataSource: ImageData);
+    constructor(sx: number, sy: number, sourceData: ImageData);
     /**
      * @return: 返回图片数据
      */

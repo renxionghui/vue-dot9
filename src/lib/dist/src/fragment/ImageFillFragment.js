@@ -17,8 +17,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
- * @Descripttion: 向X轴,Y轴同时拉伸的Image片段
- * @Date: 2020-07-27 12:34:20
+ * 向X轴,Y轴同时拉伸的Image片段
  */
 var ImageFragment_1 = __importDefault(require("./ImageFragment"));
 var ImageFillFragment = /** @class */ (function (_super) {
@@ -27,8 +26,8 @@ var ImageFillFragment = /** @class */ (function (_super) {
      * @param tw 拉伸的目标宽度
      * @param th 拉伸的目标高度
      */
-    function ImageFillFragment(sx, sy, dataSource, tw, th) {
-        var _this = _super.call(this, sx, sy, dataSource) || this;
+    function ImageFillFragment(sx, sy, sourceData, tw, th) {
+        var _this = _super.call(this, sx, sy, sourceData) || this;
         _this.tw = tw;
         _this.th = th;
         return _this;
@@ -37,11 +36,11 @@ var ImageFillFragment = /** @class */ (function (_super) {
      * @return: 沿XY轴拉伸的图片数据
      */
     ImageFillFragment.prototype.getData = function () {
-        var _a = this, tw = _a.tw, th = _a.th, dataSource = _a.dataSource;
+        var _a = this, tw = _a.tw, th = _a.th, sourceData = _a.sourceData;
         var targetArray = new Uint8ClampedArray(tw * th * 4);
         for (var y = 0; y < th; y++) {
             for (var x = 0; x < tw * 4; x++) {
-                targetArray[x + y * tw * 4] = dataSource.data[x % 4];
+                targetArray[x + y * tw * 4] = sourceData.data[x % 4];
             }
         }
         var targetData = new ImageData(targetArray, tw, th);

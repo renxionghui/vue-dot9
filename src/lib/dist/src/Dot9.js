@@ -26,14 +26,16 @@ var Dot9 = /** @class */ (function () {
      */
     Dot9.prototype.create = function () {
         var _this = this;
-        var _a = this.options, source = _a.source, sliceHorizontal = _a.sliceHorizontal, sliceVertical = _a.sliceVertical, filter = _a.filter;
-        ImageLoader_1.default.load(source, filter).then(function (imageData) {
+        var _a = this.options, source = _a.source, sliceHorizontal = _a.sliceHorizontal, sliceVertical = _a.sliceVertical;
+        ImageLoader_1.default.load(source).then(function (imageData) {
             var _a = getComputedStyle(_this.el), width = _a.width, height = _a.height;
             var targetW = parseInt(width, 10);
             var targetH = parseInt(height, 10);
             var factory = new ImageFactory_1.default(imageData, targetW, targetH);
             var image = factory.createImage(sliceHorizontal, sliceVertical);
-            _this.el.style.cssText += "background-image:url('" + image + "');background-repeat:no-repeat";
+            _this.el.style.cssText += "background-image:url('" + image + "');background-repeat:no-repeat;background-size:100% 100%";
+        }).catch(function (err) {
+            console.error(err);
         });
     };
     return Dot9;

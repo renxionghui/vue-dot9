@@ -4,7 +4,7 @@
 --> 
 <template>
     <div class="home">
-        <div class="box1" v-dot9='option1' @click='handleClick' :style='{width:width+"px",height:height+"px"}'>
+        <!-- <div class="box1" v-dot9='option1' @click='handleClick' :style='{width:width+"px",height:height+"px"}'>
 
         </div>
 
@@ -18,10 +18,12 @@
 
         <div class="box4" v-dot9='option4'>
 
-        </div>
-        <!-- <div class="box5" v-dot9='option5'>
-
         </div> -->
+        <div class="box5" v-dot9='option5'>
+
+        </div>
+
+        <div class='box6'></div>
     </div>
 </template>
 
@@ -35,30 +37,24 @@ export default {
             option1: {
                 source: require('../assets/border.png'),
                 resizable: false,
-                filter:'grayscale(1)'
             },
             option2: {
                 source: require('../assets/border.png'),
                 sliceHorizontal: [24,48],
-                // source: require('../assets/grid.jpeg'),
             },
             option3: {
                 source: require('../assets/border.png'),
                 sliceVertical: [24, 36, 48],
-                // source: require('../assets/grid.jpeg'),
             },
             option4: {
                 source: require('../assets/border.png'),
                 sliceVertical: [24, 48],
                 sliceHorizontal: [24, 48],
-                // source: require('../assets/grid.jpeg'),
             },
             option5: {
-                source: require('../assets/header.png'),
-                filter:"blur(5px)"
-                // sliceVertical: [60, 140],
-                // sliceHorizontal: [24, 48],
-                // source: require('../assets/grid.jpeg'),
+                source: require('../assets/border2.svg'),
+                sliceHorizontal: [100,580],
+                // sliceVertical: [100, 160],
             },
         }
     },
@@ -72,9 +68,9 @@ export default {
 </script>
 
 <style scoped>
+
 .home div {
     margin: 12px;
-    background-color: #aaa;
 }
 
 .box2 {
@@ -93,7 +89,17 @@ export default {
 }
 
 .box5{
-    width: 2400px;
-    height: 200px;
+    width: 900px;
+    height: 400px;
+    
 }
+
+.box6{
+    width: 680px;
+    height: 240px;
+    background-color: #282c34;
+    background-image: url('../assets/border2.svg');
+}
+
+
 </style>

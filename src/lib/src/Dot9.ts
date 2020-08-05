@@ -4,7 +4,6 @@
  */
 import ImageLoader from './util/ImageLoader';
 import ImageFactory from './util/ImageFactory';
-import { filter } from 'vue/types/umd';
 class Dot9 {
     el: HTMLElement;
     options: Options;
@@ -25,14 +24,16 @@ class Dot9 {
      * 请求图片数据,创建背景图片
      */
     create() {
-        const { source, sliceHorizontal, sliceVertical, filter } = this.options;
-        ImageLoader.load(source, filter).then((imageData: ImageData) => {
+        const { source, sliceHorizontal, sliceVertical } = this.options;
+        ImageLoader.load(source).then((imageData: ImageData) => {
             const { width, height } = getComputedStyle(this.el);
             const targetW = parseInt(width, 10);
             const targetH = parseInt(height, 10);
             const factory = new ImageFactory(imageData, targetW, targetH);
             const image = factory.createImage(sliceHorizontal, sliceVertical);
-            this.el.style.cssText += `background-image:url('${image}');background-repeat:no-repeat`;
+            this.el.style.cssText += `background-image:url('${image}');background-repeat:no-repeat;background-size:100% 100%`;
+        }).catch(err => {
+            console.error(err);
         })
     }
 }
@@ -43,7 +44,6 @@ interface Options {
     resizable: boolean;
     sliceVertical?: Array<number>;
     sliceHorizontal?: Array<number>;
-    filter?: string
 }
 
 export default Dot9

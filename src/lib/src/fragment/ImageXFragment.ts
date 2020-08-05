@@ -1,38 +1,32 @@
 /*
- * @Descripttion: 向X轴拉伸的Image片段
- * @Date: 2020-07-27 09:40:03
+ * 向X轴拉伸的Image片段
  */
 import ImageFragment from './ImageFragment';
 
 class ImageXFragment extends ImageFragment {
-    tw: number;
+    public tw: number;
     /**
      * @param tw 拉伸的目标宽度
      */
-    constructor(sx: number, sy: number, dataSource: ImageData, tw: number) {
-        super(sx, sy, dataSource);
+    constructor(sx: number, sy: number, sourceData: ImageData, tw: number) {
+        super(sx, sy, sourceData);
         this.tw = tw;
     }
 
     /**
+     * 将1像素宽度,sh高度的颜色拉伸到tw宽度
      * @return: 沿X轴拉伸的图片数据
      */
-    getData(): ImageData {
-        const { sw, sh, tw, dataSource } = this;
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-
-        canvas.width = sw;
-        canvas.height = sh;
-        context?.putImageData(dataSource, 0, 0);
-        const pxData = context?.getImageData(0, 0, 1, sh).data || [];
-        const targetArray = new Uint8ClampedArray(tw * sh * 4);
+    public getData(): ImageData {
+        const { sh, tw, sourceData } = this;
+        const pxData: Uint8ClampedArray = sourceData.data;
+        const targetArray: Uint8ClampedArray = new Uint8ClampedArray(tw * sh * 4);
         for (let y = 0; y < sh; y++) {
             for (let x = 0; x < tw * 4; x++) {
                 targetArray[x + y * tw * 4] = pxData[x % 4 + y * 4]
             }
         }
-        const targetData = new ImageData(targetArray, tw, sh)
+        const targetData: ImageData = new ImageData(targetArray, tw, sh)
         return targetData;
     }
 }
