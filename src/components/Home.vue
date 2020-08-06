@@ -33,9 +33,9 @@ export default {
                 sliceVertical: [24, 36, 48],
             },
             option4: {
-                source: require('../assets/border.png'),
-                sliceVertical: [24, 48],
-                sliceHorizontal: [24, 48],
+                source: require('../assets/grid.jpeg'),
+                sliceVertical: [24,48],
+                sliceHorizontal: [24,48],
             },
             option5: {
                 source: require('../assets/border2.svg'),
@@ -77,7 +77,7 @@ export default {
 }
 
 .box4 {
-    width: 300px;
+    width: 240px;
     height: 240px;
 }
 
@@ -94,4 +94,5 @@ export default {
     line-height: 400px;
     font-size: 60px;
 }
+
 </style>

@@ -182,7 +182,7 @@
         "affectsGlobalScope": false
       },
       "../src/util/imagefactory.ts": {
-        "version": "f4f643365ce8883a1d75a2cc1e50b1240befe8768991dbba908eb865756c183a",
+        "version": "60903a26e8d05ac0701ec30e6a83854cf0ab49525c62f2e6f5ac5bf01752e7b5",
         "signature": "dba9287bc3c44dda1b2461a83176012279e5f6b736d4d073b6b3c3afa7bdb9e4",
         "affectsGlobalScope": false
       },

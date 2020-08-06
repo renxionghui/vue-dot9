@@ -25,7 +25,6 @@ class ImageFactory {
      * @param targetH: 最终图片的高度
      */
     constructor(imageData: ImageData, targetW: number, targetH: number) {
-        
 
         this.sourceW = imageData.width;
         this.sourceH = imageData.height;
@@ -187,6 +186,7 @@ class ImageFactory {
             const osh: number = sys[i + 1] - sys[i];
             const oData: ImageData = this.getData(osx, osy, osw, osh);
             targetContext.putImageData(oData, tx, tys[2 * i])
+            
             //沿Y轴拉伸的数据
             const ysx: number = sx;
             const ysy: number = sys[i + 1];
@@ -195,6 +195,7 @@ class ImageFactory {
             const yData: ImageData = this.getData(ysx, ysy, ysw, ysh);
             const yFragment: ImageYFragment = new ImageYFragment(ysx, ysy, yData, ah);
             targetContext.putImageData(yFragment.getData(), tx, tys[2 * i + 1])
+
         }
     }
 

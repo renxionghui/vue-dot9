@@ -14,4 +14,7 @@ export default {
 </script>
 
 <style>
+body canvas{
+    margin: 12px;
+}
 </style>
