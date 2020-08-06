@@ -44,24 +44,24 @@ sliceVertical | 垂直方向上需要被拉伸的位置,默认是中间位置 | 
 ### 实现原理
 原图72\*72的图片,需要拉伸成240\*240的背景图片
 ##### 1. 原图72\*72
-![原图]()
+![原图](https://github.com/renxionghui/vue-dot9/blob/master/screenshort/grid.jpeg)
 
 ##### 2. 目标240*240,将原图根据sliceHorizontal: [24, 48],sliceVertical: [24, 48]进行分割,在水平方向上24,与48位置将图片分割成[0 ~ 23, 24 ~ 47,48 ~ 71]三块,垂直方向同理.
-![分割图]()
+![分割图](https://github.com/renxionghui/vue-dot9/blob/master/screenshort/slice.png)
 
 ##### 3. 剩下空白区域取对应位置上的一个像素的图片数据进行复制与填充
 
 - ###### X轴取一个像素宽,24像素高(由sliceVertical决定),往水平方向复制拉伸
-![X轴]()
+![X轴](https://github.com/renxionghui/vue-dot9/blob/master/screenshort/sliceX.png)
 
 - ###### Y轴取一个像素高,24像素宽(由sliceHorizontal决定),往垂直方向复制拉伸
-![Y轴]()
+![Y轴](https://github.com/renxionghui/vue-dot9/blob/master/screenshort/sliceY.png)
 
 - ###### X轴,Y轴取一个像素宽,一个像素高,往XY轴拉伸复制
-![XY轴]()
+![XY轴](https://github.com/renxionghui/vue-dot9/blob/master/screenshort/sliceXY.png)
 
 - ###### 最终效果
-![最终效果]()
+![最终效果](https://github.com/renxionghui/vue-dot9/blob/master/screenshort/target.png)
 
 ### 其他说明
 刚学Typescript,算是一个Typescript练手项目,BUG可能会比较多,欢迎指正,邮箱:renxionghui@126.com
