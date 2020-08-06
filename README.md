@@ -64,4 +64,4 @@ sliceVertical | 垂直方向上需要被拉伸的位置,默认是中间位置 | 
 ![最终效果](https://github.com/renxionghui/vue-dot9/blob/master/screenshort/target.png)
 
 ### 其他说明
-刚学Typescript,算是一个Typescript练手项目,BUG可能会比较多,欢迎指正,邮箱:renxionghui@126.com
+欢迎指正,邮箱:renxionghui@126.com
