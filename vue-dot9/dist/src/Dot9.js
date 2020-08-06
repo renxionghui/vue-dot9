@@ -26,14 +26,15 @@ var Dot9 = /** @class */ (function () {
      */
     Dot9.prototype.create = function () {
         var _this = this;
-        var _a = this.options, source = _a.source, sliceHorizontal = _a.sliceHorizontal, sliceVertical = _a.sliceVertical;
+        var _a = this.options, source = _a.source, sliceHorizontal = _a.sliceHorizontal, sliceVertical = _a.sliceVertical, resizable = _a.resizable;
         ImageLoader_1.default.load(source).then(function (imageData) {
             var _a = getComputedStyle(_this.el), width = _a.width, height = _a.height;
             var targetW = parseInt(width, 10);
             var targetH = parseInt(height, 10);
             var factory = new ImageFactory_1.default(imageData, targetW, targetH);
             var image = factory.createImage(sliceHorizontal, sliceVertical);
-            _this.el.style.cssText += "background-image:url('" + image + "');background-repeat:no-repeat;background-size:100% 100%";
+            var backgroundSize = resizable !== false ? '100% 100%' : targetW + "px " + targetH + "px";
+            _this.el.style.cssText += "background-image:url('" + image + "');background-repeat:no-repeat;background-size:" + backgroundSize;
         }).catch(function (err) {
             console.error(err);
         });

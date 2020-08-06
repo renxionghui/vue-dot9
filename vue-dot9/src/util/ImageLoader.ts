@@ -15,7 +15,6 @@ class ImageLoader {
             image.src = source;
             image.addEventListener('load', function () {
                 const ratio: number = window.devicePixelRatio || 1;
-                console.log(image.naturalWidth,image.width);
                 const { width, height } = image;
                 canvas.width = width * ratio;
                 canvas.height = height * ratio;

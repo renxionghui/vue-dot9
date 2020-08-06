@@ -29,7 +29,6 @@ class ImageFactory {
 
         this.sourceW = imageData.width;
         this.sourceH = imageData.height;
-        console.log(this.sourceW, this.sourceH, targetW, targetH);
         this.targetW = targetW * this.ratio;
         this.targetH = targetH * this.ratio;
 
