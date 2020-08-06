@@ -6,6 +6,7 @@ declare class ImageFactory {
     private targetCanvas;
     private targetContext;
     private sourceContext;
+    private ratio;
     /**
      * @param imageData:下载的图片数据
      * @param targetW: 最终图片的宽度

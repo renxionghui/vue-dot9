@@ -19,11 +19,12 @@ var ImageLoader = /** @class */ (function () {
             image.src = source;
             image.addEventListener('load', function () {
                 var ratio = window.devicePixelRatio || 1;
+                console.log(image.naturalWidth, image.width);
                 var width = image.width, height = image.height;
-                canvas.width = width;
-                canvas.height = height;
-                context.drawImage(image, 0, 0, width, height);
-                resolve(context.getImageData(0, 0, width, height));
+                canvas.width = width * ratio;
+                canvas.height = height * ratio;
+                context.drawImage(image, 0, 0, width * ratio, height * ratio);
+                resolve(context.getImageData(0, 0, width * ratio, height * ratio));
             }, { once: true });
             image.addEventListener('error', function (error) {
                 reject(error);

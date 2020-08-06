@@ -15,11 +15,12 @@ class ImageLoader {
             image.src = source;
             image.addEventListener('load', function () {
                 const ratio: number = window.devicePixelRatio || 1;
+                console.log(image.naturalWidth,image.width);
                 const { width, height } = image;
-                canvas.width = width;
-                canvas.height = height;
-                context.drawImage(image, 0, 0, width, height);
-                resolve(context.getImageData(0, 0, width, height))
+                canvas.width = width * ratio;
+                canvas.height = height * ratio;
+                context.drawImage(image, 0, 0, width * ratio, height * ratio);
+                resolve(context.getImageData(0, 0, width * ratio, height * ratio))
             }, { once: true })
             image.addEventListener('error', function (error: ErrorEvent) {
                 reject(error)

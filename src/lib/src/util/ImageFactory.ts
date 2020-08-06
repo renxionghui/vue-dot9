@@ -18,24 +18,24 @@ class ImageFactory {
     private targetCanvas: HTMLCanvasElement;
     private targetContext: CanvasRenderingContext2D;
     private sourceContext: CanvasRenderingContext2D;
-
+    private ratio: number = window.devicePixelRatio || 1;
     /**
      * @param imageData:下载的图片数据
      * @param targetW: 最终图片的宽度
      * @param targetH: 最终图片的高度
      */
     constructor(imageData: ImageData, targetW: number, targetH: number) {
-        const ratio: number = window.devicePixelRatio || 1;
+        
 
         this.sourceW = imageData.width;
         this.sourceH = imageData.height;
-
-        this.targetW = targetW;
-        this.targetH = targetH;
+        console.log(this.sourceW, this.sourceH, targetW, targetH);
+        this.targetW = targetW * this.ratio;
+        this.targetH = targetH * this.ratio;
 
         this.targetCanvas = document.createElement('canvas');
-        this.targetCanvas.width = targetW;
-        this.targetCanvas.height = targetH;
+        this.targetCanvas.width = targetW * this.ratio;
+        this.targetCanvas.height = targetH * this.ratio;
         this.targetContext = <CanvasRenderingContext2D>this.targetCanvas.getContext('2d');
         const sourceCanvas: HTMLCanvasElement = document.createElement('canvas');
         sourceCanvas.width = imageData.width;
@@ -63,8 +63,17 @@ class ImageFactory {
      * @return: 图片数据
      */
     public createImage(sliceHorizontal?: Array<number>, sliceVertical?: Array<number>): string {
+        if (sliceHorizontal && sliceHorizontal.length > 0) {
+            for (let i = 0; i < sliceHorizontal.length; i++) {
+                sliceHorizontal[i] = sliceHorizontal[i] * this.ratio
+            }
+        }
+        if (sliceVertical && sliceVertical.length > 0) {
+            for (let i = 0; i < sliceVertical.length; i++) {
+                sliceVertical[i] = sliceVertical[i] * this.ratio
+            }
+        }
         this.slice(sliceHorizontal, sliceVertical);
-        
         return this.targetCanvas.toDataURL();
     }
 

@@ -21,14 +21,15 @@ var ImageFactory = /** @class */ (function () {
      * @param targetH: 最终图片的高度
      */
     function ImageFactory(imageData, targetW, targetH) {
-        var ratio = window.devicePixelRatio || 1;
+        this.ratio = window.devicePixelRatio || 1;
         this.sourceW = imageData.width;
         this.sourceH = imageData.height;
-        this.targetW = targetW;
-        this.targetH = targetH;
+        console.log(this.sourceW, this.sourceH, targetW, targetH);
+        this.targetW = targetW * this.ratio;
+        this.targetH = targetH * this.ratio;
         this.targetCanvas = document.createElement('canvas');
-        this.targetCanvas.width = targetW;
-        this.targetCanvas.height = targetH;
+        this.targetCanvas.width = targetW * this.ratio;
+        this.targetCanvas.height = targetH * this.ratio;
         this.targetContext = this.targetCanvas.getContext('2d');
         var sourceCanvas = document.createElement('canvas');
         sourceCanvas.width = imageData.width;
@@ -54,6 +55,16 @@ var ImageFactory = /** @class */ (function () {
      * @return: 图片数据
      */
     ImageFactory.prototype.createImage = function (sliceHorizontal, sliceVertical) {
+        if (sliceHorizontal && sliceHorizontal.length > 0) {
+            for (var i = 0; i < sliceHorizontal.length; i++) {
+                sliceHorizontal[i] = sliceHorizontal[i] * this.ratio;
+            }
+        }
+        if (sliceVertical && sliceVertical.length > 0) {
+            for (var i = 0; i < sliceVertical.length; i++) {
+                sliceVertical[i] = sliceVertical[i] * this.ratio;
+            }
+        }
         this.slice(sliceHorizontal, sliceVertical);
         return this.targetCanvas.toDataURL();
     };

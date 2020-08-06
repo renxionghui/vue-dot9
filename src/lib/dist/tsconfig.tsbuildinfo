@@ -157,7 +157,7 @@
         "affectsGlobalScope": true
       },
       "../src/util/imageloader.ts": {
-        "version": "7d04052ff0958df247468ab94923ba3bbbabf7deaad10dbf31d3a17c4b185bc2",
+        "version": "96a6298612d7eb66b576adfbfd12d42aba5f1a5b63ed2b1066698150d0a4b3dc",
         "signature": "42bb718fd8a8ad959b730c600942f138a3d7109570ecf73f5121a11b1daac0cd",
         "affectsGlobalScope": false
       },
@@ -182,8 +182,8 @@
         "affectsGlobalScope": false
       },
       "../src/util/imagefactory.ts": {
-        "version": "40039b145e50944dc195baa6bb330f8be8999e9f0539bc1ce1b9a0a351db3f7e",
-        "signature": "638892c7affb0d4d07a87f8a19c985b4cefbf2b6a75a07d51a72a4661ebbbf98",
+        "version": "4d9de035ad47fe78c8a7bbd64611424645ac0796c4f6fb8b8bed49c819fc7296",
+        "signature": "dba9287bc3c44dda1b2461a83176012279e5f6b736d4d073b6b3c3afa7bdb9e4",
         "affectsGlobalScope": false
       },
       "../src/dot9.ts": {

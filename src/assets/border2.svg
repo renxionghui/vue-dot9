@@ -3,10 +3,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width='680' height='240' viewBox="0 0 680 240" style="enable-background:new 0 0 680 240;" xml:space="preserve">
   <defs>
     <filter id="border-box-filterId" height="150%" width="150%" x="-25%" y="-25%">
-      <!-- <feMorphology operator="dilate" radius="2" in="SourceAlpha" result="thicken"></feMorphology> 
+      <feMorphology operator="dilate" radius="2" in="SourceAlpha" result="thicken"></feMorphology> 
       <feGaussianBlur in="thicken" stdDeviation="3" result="blurred"></feGaussianBlur>
       <feFlood result="glowColor" flood-color="#1f33a2"></feFlood> 
-      <feComposite in="glowColor" in2="blurred" operator="in" result="softGlowColored"></feComposite>  -->
+      <feComposite in="glowColor" in2="blurred" operator="in" result="softGlowColored"></feComposite> 
       <feMerge>
         <feMergeNode in="softGlowColored"></feMergeNode> 
         <feMergeNode in="SourceGraphic"></feMergeNode>
