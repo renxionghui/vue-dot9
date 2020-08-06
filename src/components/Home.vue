@@ -6,8 +6,9 @@
         </div>
         <div class="box3" v-dot9='option3'></div>
         <div class="box4" v-dot9='option4'></div>
+        <div style='clear:both'></div>
         <div class="box5" v-dot9='option5'></div>
-        <div class="box6" v-dot9='option6' @click='handleChange'>
+        <div class="box6" v-dot9='option6' @click='handleChange' :style='{ backgroundColor: bgColor }'>
             点击变更背景图案
         </div>
     </div>
@@ -20,6 +21,7 @@ export default {
         return {
             width: 72,
             height: 72,
+            bgColor:'#282c34',
             option1: {
                 source: require('../assets/border.png'),
                 resizable: false,
@@ -33,7 +35,7 @@ export default {
                 sliceVertical: [24, 36, 48],
             },
             option4: {
-                source: require('../assets/grid.jpeg'),
+                source: require('../assets/border.png'),
                 sliceVertical: [24,48],
                 sliceHorizontal: [24,48],
             },
@@ -53,7 +55,14 @@ export default {
             this.height += 10
         },
         handleChange(){
-            this.option6.source = require('../assets/border.png')
+            if(this.bgColor === '#fff'){
+                this.option6.source = require('../assets/border2.svg');
+                this.bgColor = '#282c34'
+            }else{
+                this.option6.source = require('../assets/border.png');
+                this.bgColor = '#fff';
+            }
+            
         }
     },
 }
@@ -67,7 +76,7 @@ export default {
 }
 
 .box2 {
-    width: 600px;
+    width: 240px;
     height: 72px;
 }
 
@@ -82,13 +91,13 @@ export default {
 }
 
 .box5{
-    width: 900px;
+    width: 800px;
     height: 400px;
     background-color: #282c34;
 }
 
 .box6{
-    width: 900px;
+    width: 800px;
     height: 400px;
     text-align: center;
     line-height: 400px;
