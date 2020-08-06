@@ -1,4 +1,4 @@
-## <center>Web端.9背景图片</center>
+## <center>Vue .9背景图片</center>
 基于vue 2.x的一个生成背景图片的一个插件,类似于Android的.9图片和CSS3中的border-image-slice,当图片背景需要适应多种尺寸大小,且不想令图片看起来模糊,可以尝试使用这个插件,生成的最终图片是base64数据
 
 ### 安装插件
