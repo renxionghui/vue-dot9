@@ -23,7 +23,7 @@ Vue.use(dot9);
 data() {
     return {
         option: {
-            source:require('../assets/border.png',
+            source:require('../assets/border.png'),
             resizable: false,
             sliceHorizontal: [24, 48],
             sliceVertical: [24, 48]
