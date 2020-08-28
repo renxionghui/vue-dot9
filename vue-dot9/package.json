@@ -1,0 +1,55 @@
+{
+  "_args": [
+    [
+      "vue-dot9@1.0.1",
+      "/Users/mac/workspace/vue-dot9-demo"
+    ]
+  ],
+  "_from": "vue-dot9@1.0.1",
+  "_id": "vue-dot9@1.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-GNd0Wfaojr6MuW/zJnPGzicUt9BZsr1MMs/t9iLV/s2wcwywjX9TUTniLIb2C04A46lj7YEg0eexqzF0XBYlcw==",
+  "_location": "/vue-dot9",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "vue-dot9@1.0.1",
+    "name": "vue-dot9",
+    "escapedName": "vue-dot9",
+    "rawSpec": "1.0.1",
+    "saveSpec": null,
+    "fetchSpec": "1.0.1"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/vue-dot9/-/vue-dot9-1.0.1.tgz",
+  "_spec": "1.0.1",
+  "_where": "/Users/mac/workspace/vue-dot9-demo",
+  "author": {
+    "name": "renxionghui"
+  },
+  "dependencies": {
+    "@juggle/resize-observer": "^3.2.0"
+  },
+  "description": "web端.9图片,参照android .9图片以及CSS3 border-image-slice实现",
+  "keywords": [
+    ".9",
+    "vue",
+    "background",
+    "Typescript",
+    "v-dot9",
+    "vue-dot9"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "vue-dot9",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.1",
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+}
